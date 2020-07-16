@@ -1,0 +1,21 @@
+.acount-coupons
+  .acount-coupons--main
+    .coupons
+      template( v-if='data && data.length > 0' )
+        template( v-for='item in data' )
+          Coupon(
+            :href='"/perfil/galerias-de-fotos/" + item.slug + "-" + item.id' 
+            class='coupon-small-2'
+            :name='item.name'
+            :store_img='item.store_img'
+            :img='item.img',
+            cname="page-experiencias"
+          )
+            .gallery-overlay
+              .modal
+              .label Ver Fotos
+
+      template( v-else )
+        p(
+          v-if='isBusy === 0'
+        ) No hay galerias que mostrar

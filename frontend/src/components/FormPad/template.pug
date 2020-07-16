@@ -1,0 +1,8 @@
+.pad
+  .keys
+    template( v-for='item in keys' )
+      span.slot
+        span.key( @click.prevent='handleKey' :type="item" ) {{ item }}
+
+  span.clear
+    span.key( @click.prevent='handleKey' type='clear' )

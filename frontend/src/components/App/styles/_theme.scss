@@ -1,0 +1,183 @@
+// Control de color para la vistas premiun
+// body.clase
+.premium .tab-pane .btn-c,
+.premium nav,
+.premium #confirmation .f-btn,
+.premium #m-cuenta .f-btn{
+  background-color: #917F4D;
+}
+.premium #confirmation a.cnc,
+.premium #confirmation h3,
+.premium #m-cuenta .m-box h2{
+  color: #917F4D;
+}
+
+.premium .a-logo-disfruta,
+.premium .b-logo-disfruta,
+.premium .a-logo-profuturo,
+.premium .b-logo-profuturo,
+.details-experiencias .a-logo-disfruta,
+.details-experiencias .b-logo-disfruta,
+.details-experiencias .a-logo-profuturo,
+.details-experiencias .b-logo-profuturo{
+  fill: #917F4D;
+}
+
+.premium .btn-lq,
+.premium .button,
+.details-experiencias .banner-content .button,
+.page-experiencias .banner-content .button
+{
+  background-color: $dorado;
+}
+
+.premium .details-b-descrip .price,
+.premium .details-b-descrip .price span,
+.premium .details-b-descrip .price-after{
+  color: $dorado;
+}
+
+
+// Controla el color para la vista Detalles
+// body.clase
+.details-bienestar .header-main_nav,
+.details-bienestar .btn-lq,
+.details-bienestar .button
+{
+  background-color: $verde-limon !important;
+}
+.details-bienestar .details-b-descrip .price,
+.details-bienestar .details-b-descrip .price span,
+.details-bienestar .details-b-descrip .price-before,
+.details-b-descrip .details-b-descrip .price-after{
+  color:$verde-limon;
+}
+
+.details-entretenimiento .header-main_nav,
+.details-entretenimiento .btn-lq,
+.details-entretenimiento .button
+{
+  background-color: $morado !important;
+}
+
+.details-entretenimiento .details-b-descrip .price,
+.details-entretenimiento .details-b-descrip .price span,
+.details-entretenimiento .details-b-descrip .price-before,
+.details-entretenimiento .details-b-descrip .price-after{
+  color:$morado;
+}
+
+.details-educacion .header-main_nav,
+.details-educacion .btn-lq,
+.details-educacion .button
+{
+  background-color: $azul !important;
+}
+
+.details-educacion .details-b-descrip .price,
+.details-educacion .details-b-descrip .price span,
+.details-educacion .details-b-descrip .price-before,
+.details-educacion .details-b-descrip .price-after{
+  color: $azul;
+}
+
+.details-hogar .header-main_nav,
+.details-hogar .btn-lq,
+.details-hogar .button
+{
+  background-color: $amarillo !important;
+}
+
+.details-hogar .details-b-descrip .price,
+.details-hogar .details-b-descrip .price span,
+.details-hogar .details-b-descrip .price-before,
+.details-hogar .details-b-descrip .price-after{
+  color: $amarillo;
+}
+.details-estilo-de-vida .header-main_nav,
+.details-estilo-de-vida .btn-lq,
+.details-estilo-de-vida .button
+{
+  background-color: $verde !important;
+}
+
+.details-estilo-de-vida .details-b-descrip .price,
+.details-estilo-de-vida .details-b-descrip .price span,
+.details-estilo-de-vida .details-b-descrip .price-before,
+.details-estilo-de-vida .details-b-descrip .price-after{
+  color: $verde;
+}
+
+.details-viajes .header-main_nav,
+.details-viajes .btn-lq,
+.details-viajes .button
+{
+  background-color: $rosado !important;
+}
+
+.details-viajes .details-b-descrip .price,
+.details-viajes .details-b-descrip .price span,
+.details-viajes .details-b-descrip .price-before,
+.details-viajes .details-b-descrip .price-after{
+  color: $rosado;
+}
+
+.details-experiencias .header-main_nav,
+.details-experiencias .btn-lq,
+.details-experiencias .button
+{
+  background-color: $dorado !important;
+}
+
+.details-experiencias .details-b-descrip .price,
+.details-experiencias .details-b-descrip .price span,
+.details-experiencias .details-b-descrip .price-before,
+.details-experiencias .form-title,
+.details-experiencias .button-simple,
+.details-experiencias .details-b-descrip .price-after {
+  color: $dorado;
+}
+
+.details-experiencias .form-title h3
+//.details-experiencias .page-main h3
+ {
+  color: $dorado !important;
+}
+
+/*
+.premium nav .n-ctg,
+.details-weel-being nav .n-ctg,
+.details-experiencias nav .n-ctg,
+.details-education nav .n-ctg,
+.details-entertainment nav .n-ctg,
+.details-home nav .n-ctg,
+.details-lifestyle nav .n-ctg,
+.details-trip nav .n-ctg{    
+  display: flex;
+  align-items: center;
+  color:#fff; 
+}*/
+
+nav .n-ctg{    
+  display: flex;
+  align-items: center;
+  color:#fff; 
+}
+// Asigna el icono premium
+
+.premium .logo-p{
+  display: block;
+}
+
+.premium .logo-r{
+  display: none;
+}
+
+.details-experiencias .logo-p{
+  display: block;
+}
+
+.details-experiencias .logo-r{
+  display: none;
+}
+

@@ -1,0 +1,45 @@
+.tyc {
+	max-width: 960px;
+	width: 90%;
+	margin: 0 auto;
+	padding: 40px 0;
+	h2 {
+		margin: 0;
+		font-size: 1.5rem;
+		line-height: 2.5rem;
+		color: #ee3225;
+	}
+	h4 {
+		font-size: 1.2rem;
+	}
+	p,
+	li {
+		line-height: 1.5rem;
+		text-align: justify;
+	}
+	a {
+		color: #757575;
+	}
+}
+
+@media only screen and (max-width:768px) {
+	.tyc {
+		max-width: 85%;
+		width: 100%;
+		h2 {
+			line-height: 2rem;
+		}
+	}
+}
+
+@media only screen and (max-width:480px) {
+	.tyc {
+		h2 {
+			font-size: 1rem;
+			line-height: 1.5rem;
+		}
+		h4 {
+			font-size: 1rem;
+		}
+	}
+}

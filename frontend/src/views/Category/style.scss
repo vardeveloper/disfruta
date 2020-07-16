@@ -1,0 +1,29 @@
+.section-category {
+  padding-top: 0 !important;
+}
+
+.center-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.section-banner {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.section-banner-main {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .section-banner {
+    position: relative;
+    min-height: calc(100vh - 91px);
+  }
+}
+

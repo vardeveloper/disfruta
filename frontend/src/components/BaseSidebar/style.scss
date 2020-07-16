@@ -1,0 +1,81 @@
+#sidebar_inner {
+  direction: ltr;
+}
+
+#sidebar {
+  background: #EE3224;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  direction: rtl;
+
+  /*
+  &:after {
+    content: "";
+    background-image: url(#{$static-path}/image/m-shadow.png);
+    display: block;
+    width: 22px;
+    height: 100vh;
+    position: absolute;
+    background-size: cover;
+    top: 0;
+    right: 0;
+    background-repeat: no-repeat;
+  }
+  */
+
+  .item {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 14px;
+
+    border-top: 1px solid #00000010;
+    padding: 14px 10px 15px 50px;
+    cursor: pointer;
+
+    .item-icon {
+      margin-right: 6px;
+    }
+  }
+
+  .item:focus {
+    outline-width: 2px;
+    outline-offset: 0;
+    background: #00000017;
+  }
+
+  .selected, .selected:hover {
+    background: #00000017;
+  }
+
+  .item-title {
+    font-size: 18px;
+    margin: 0;
+    color: #FFF;
+    padding: 13px 10px 11px 36px;
+    font-weight: bold;
+  }
+}
+
+#sidebar_header {
+  padding: 25px 0 30px 35px;
+}
+
+#sidebar_logo {
+  display: block;
+  width: 96px;
+  height: 36px;
+
+  .a-logo-disfruta {
+    fill: #FFFFFF !important;
+  }
+}
+
+#sidebar_secundary {
+  .item {
+    border: none;
+    padding-left: 36px;
+  }
+}

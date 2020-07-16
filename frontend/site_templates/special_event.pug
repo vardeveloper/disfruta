@@ -1,0 +1,10 @@
+extends layout
+block data
+  |self.data = {};
+  |{%- if data -%}
+  |self.data.data = [
+  |{%- for item in data -%}{{ item|tojson }},{%- endfor -%}
+  |];
+  |{%- endif -%}
+  |{%- if category -%}self.data.category = {{ category|tojson }};{%- endif -%}
+  |{%- if special_event -%}self.data.special_event = {{ special_event|tojson }};{%- endif -%}

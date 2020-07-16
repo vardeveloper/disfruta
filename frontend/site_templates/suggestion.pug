@@ -1,0 +1,72 @@
+extends layout
+block data
+ |self.errorsPhone = {{ form.phone.errors|tojson }};
+ |self.errorsEmail = {{ form.email.errors|tojson }};
+ |self.errorsMessage = {{ form.message.errors|tojson }};
+
+block body
+  script#FormSuggestion( type='text/x-template' )
+    .main-inner
+      |{%- if handler.request.method == 'POST' and not form.errors  and not form.errors.custom %}
+      h3.title Tu sugerencia ha sido enviada
+      p.form-message-success Gracias por tu tiempo.
+      |{%- else %}
+      h3.title Tu opini&oacute;n es importante
+        br
+        |para nosotros
+      p.description Env&iacute;anos tus sugerencias para seguir brind&aacute;ndote el mejor servicio.
+
+      Form(
+        ref="form"
+        @submit.prevent="handleSubmit"
+        :class="['form-inline', {'form-loaded': isLoaded}]"
+        :action="action"
+        :method="method"
+      )
+        .form-overlay
+        |{% if handler.request.method == 'POST' and form.errors  and form.errors.custom %}
+        p.form-message-error {{ form.errors.custom }}
+        |{%- endif %}
+
+
+        #recaptcha.g-recaptcha(
+          data-sitekey="{{ handler.settings.get('recaptcha_key') }}"
+          data-size='invisible'
+          data-callback='suggestionFormHandleSubmit'
+        )
+
+        |{{ handler.xsrf_form_html() }}
+
+        FormInput(
+          label='{{ form.email.label.text }}'
+          id='{{ form.email.id }}'
+          name='{{ form.email.name }}'
+          value='{{ form.email.value }}'
+          :errors="errorsEmail"
+          v-model='email'
+        )
+
+        FormInput(
+          label='{{ form.phone.label.text }}'
+          id='{{ form.phone.id }}'
+          name='{{ form.phone.name }}'
+          value='{{ form.phone.value }}'
+          :errors="errorsPhone"
+          v-model='phone'
+          :attrs="{ 'maxlength': 9 }"
+        )
+
+        FormTextArea(
+          label='{{ form.message.label.text }}'
+          id='{{ form.message.id }}'
+          name='{{ form.message.name }}'
+          value='{{ form.message.value }}'
+          :errors="errorsMessage"
+          v-model='message'
+        )
+
+        .buttons.buttons-center
+          button.button( type='submit' ) Enviar
+
+      slot
+      |{% endif %}

@@ -1,0 +1,19 @@
+Page
+  template( v-slot:header )
+    HeaderSimple(
+      backUrl='/',
+      hs_name='Inicio'
+    )
+
+  template( v-slot:main )
+    .page-main-inner
+      FormSuggestion(
+        action=''
+        method='post'
+      )
+        p.disclaimer *Si tienes alg&uacute;n reclamo u observaci&oacute;n reg&iacute;stralo en nuestro  
+          a( href="https://enlinea.profuturo.com.pe/libro-reclamaciones" target="_blank" ) Libro de Reclamaciones
+          | .
+
+  template( v-slot:footer )
+    Footer

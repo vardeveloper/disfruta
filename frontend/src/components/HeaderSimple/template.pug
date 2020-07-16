@@ -1,0 +1,21 @@
+header.header-main
+  .header-main_brand
+    router-link#logo( to="/" ) Disfruta Profuturo
+    #logo_profuturo Profuturo
+
+  nav.header-main_nav(
+    v-if='!noNav'
+  )
+    .header-main_nav_simple
+      a( @click.prevent="backToUrl" )
+        img.header-icon-back(:src="handler.static_url + 'image/back.png'")
+        p.details-cat(
+          :style="(hs_name)? 'opacity: 1': ''"
+        )
+          span(
+            v-if='icon_class'
+            :class='icon_class'
+          )
+          span {{ hs_name }}
+
+      slot

@@ -1,0 +1,23 @@
+.field-content(
+  :class="{ 'field-state-open': isOpen }"
+  @focusin='handleFocus'
+  @focusout='handleFocus'
+  @change='updated'
+)
+  label.field-label( :for='id' ) {{ label }}
+  label.field-label-helper( :for='id' ) {{ label }}
+  .field-input
+    slot( name='input' )
+      input(
+        :type='type'
+        :id='id'
+        :name='name'
+        :value='value'
+        ref='input'
+        v-on:keyup='updated'
+      )
+
+  slot( name='errors' )
+    template( v-for="error in errors" )
+      label.error( :for='id' )
+        |{{ error }}

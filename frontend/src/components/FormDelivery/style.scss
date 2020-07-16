@@ -1,0 +1,31 @@
+.columns {
+  display: flex;
+  align-items: flex-end;
+
+  > div:first-child {
+    margin-right: 9px;
+  }
+
+  > div:last-child {
+    margin-left: 9px;
+  }
+}
+
+.form.form-delivery {
+  padding: 43px 35px;
+}
+
+
+@media (max-width: 600px) {
+  .columns {
+    display: block;
+
+    > div:first-child {
+      margin-right: 0;
+    }
+
+    > div:last-child {
+      margin-left: 0;
+    }
+  }
+}

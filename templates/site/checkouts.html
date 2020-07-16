@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1.0"><script async src="https://www.googletagmanager.com/gtag/js?id=G-8WSBP7QX6G"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8WSBP7QX6G');
+</script>{% if ':8080' in handler.settings.get('static_url_prefix') %}<!-- <link rel="preload" href="{{ handler.static_url('app.css') }}" as="style">--><!-- <link rel="preload" href="{{ handler.static_url('chunk-vendors.js') }}" as="script">--><link rel="preload" href="{{ handler.static_url('app.js') }}" as="script"><link rel="icon" href="{{ handler.static_url('favicon.ico') }}"><!-- <link rel="stylesheet" href="{{ handler.static_url('app.css') }}">-->{% else %}<link rel="preload" href="{{ handler.static_url('css/app.css') }}" as="style"><link rel="preload" href="{{ handler.static_url('js/chunk-vendors.js') }}" as="script"><link rel="preload" href="{{ handler.static_url('js/app.js') }}" as="script"><link rel="icon" href="{{ handler.static_url('favicon.ico') }}"><link rel="stylesheet" href="{{ handler.static_url('css/app.css') }}">{% endif %}<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css"><title> Disfruta Profuturo</title><script>window._gmap_key = '{{ handler.settings.get("gmap_key") }}';
+window.__template_data = (function() {
+ var self = {};
+ self.handler = {};
+ self.handler.static_url = '{{ handler.static_url('') }}';
+ self.handler.xsrf = '{{ handler.xsrf_token }}';
+ {%- if handler.current_user != None %}
+ self.currentUser = {};
+ self.currentUser.jwt = '{{ handler.current_user.access_token }}';
+ self.currentUser.premium = {{ handler.current_user.premium|default(False)|tojson }};
+ self.currentUser.id = '{{ handler.current_user.id }}';
+ {%- else  %}
+ self.currentUser = null;
+ {%- endif  %}
+ {%- if handler.get_menu() %}self.menu = {{ handler.get_menu()|default([])|tojson }};{% endif %}
+ {%- if banner %}self.banner = { "img": "{{ banner.img }}", "description": "{{ banner.description }}", "link": "{{ banner.link }}" };{% endif %}
+ {%- if banner_category %}self.banner_category = { "img": "{{ banner_category.img }}", "description": "{{ banner_category.description }}", "link": "{{ banner_category.link }}" };{% endif %}
+ {%- if logos %}
+ self.logos = [{%- for logo in logos %}{"img": "{{logo.img }}"}{% if not loop.last %},{% endif %}{% endfor %}];
+ {%- endif %}self.couponsHistory = [{% for group in coupons %}
+{ date: "{{ group.date }}", items: {{ group.get('items')|tojson }} }
+{%- if not loop.last %},{% endif -%}
+{% endfor %}]; return self;
+}());</script></head><body><noscript><strong>Lo sentimos pero es necesario que tenga activado Javascript para continuar.</strong></noscript><div id="app"></div>{% if ':8080' in handler.settings.get('static_url_prefix') %}<script src="{{ handler.static_url('app.js') }}"></script>{% else %}<script src="{{ handler.static_url('js/chunk-vendors.js') }}"></script><script src="{{ handler.static_url('js/app.js') }}"></script>{% endif %}</body></html>

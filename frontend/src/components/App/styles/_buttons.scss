@@ -1,0 +1,40 @@
+.button {
+  background-color: $rojo;
+  display: flex;
+  width: 100%;
+  max-width: 264px;
+  height: 50px;
+  margin-bottom: 20px;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button-simple {
+  color: $rojo;
+  text-decoration: underline;
+  padding: 11px 20px;
+  cursor: pointer;
+}
+
+.buttons-center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .button-simple,
+  .button
+  {
+    margin: 0 5px;
+  }
+}

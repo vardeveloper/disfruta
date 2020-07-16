@@ -1,0 +1,90 @@
+.page { 
+  background-color: #ffffff;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  .header-main_nav{
+    display: none;
+  }
+}
+
+.page-content {
+  width:90%;
+  height: auto;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding-bottom: 30px;
+}
+
+.page-main {
+  position: relative;
+  width: 100%;
+  max-width: 548px;
+}
+
+.page-main-inner {
+  transition: opacity .2s ease-in-out;
+}
+
+.header-main {
+  background: none !important;
+  position: relative;
+  z-index: 2;
+}
+
+.page-content {
+  position: relative;
+  z-index: 2;
+}
+
+#footer {
+  position: relative;
+  z-index: 2;
+}
+
+@media only screen and (min-width:480px){
+  .page {
+    background-image: url(#{$static-path}/image/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+@media only screen and (min-width:600px){
+  .page-content {
+    width: 100%;
+    max-width: 1280px;
+    height: auto;
+    min-height: calc(100vh - 127px);
+    background-image: none;
+  }
+}
+
+@media only screen and (min-width: 800px){
+  .page-content {
+    justify-content: flex-end;
+  }
+  .page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(#{$static-path}/image/form.png);
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    z-index: 1;
+  }
+  .page-main {
+    right: 96px;
+  }
+}

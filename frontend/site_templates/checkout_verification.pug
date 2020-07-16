@@ -1,0 +1,14 @@
+extends checkout
+
+block data
+ |self.current_step = 0;
+ |self.total_steps = 0;
+ |self.formTitle = 'Confirma tu elección';
+ |self.category = {{ category|tojson }};
+
+ |{% if form %}
+ |self.errorsDocNumber = {{ form.doc_number.errors|tojson }};
+ |self.errorsDocType = {{ form.doc_type.errors|tojson }};
+ |self.docTypeOptions = {{ form.doc_type.choices|tojson }};
+ |self.errorCustom = {%- if form and form.errors and form.errors.custom %}{{ form.errors.custom|tojson }}{% else %}null{% endif -%};
+ |{% endif %}

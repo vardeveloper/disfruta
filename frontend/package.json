@@ -1,0 +1,70 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -fr ../static/css/*; rm -fr ../static/js/*; rm -fr ../static/svg; rm -fr ../static/image; rm -fr ../templates/site/*",
+    "template": "pug ./site_templates --out ../templates/site",
+    "template:watch": "yarn template -w -P",
+    "serve:vue": "vue-cli-service serve",
+    "serve": "abby template:watch serve:vue",
+    "build": "yarn clean; yarn template; vue-cli-service build --no-clean; rm ../static/index.html",
+    "prod": "yarn clean; yarn template; PROD_STATIC_URL='https://s3.amazonaws.com/static.disfrutaprofuturo.com.pe/' vue-cli-service build --no-clean; rm ../static/index.html",
+    "lint": "vue-cli-service lint",
+    "mjml": "mjml ./mailing_templates/*.mjml --config.minify -o ../templates/mailing"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "gsap": "^2.1.2",
+    "mjml": "^4.4.0-beta.1",
+    "nprogress": "^0.2.0",
+    "scrollbooster": "^1.1.0",
+    "smoothscroll-polyfill": "^0.4.4",
+    "velocity-animate": "^2.0.5",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.1",
+    "vue2-touch-events": "^2.0.0",
+    "vuejs-datepicker": "^1.6.2",
+    "vuex": "^3.0.1",
+    "yarn": "^1.19.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.4.0",
+    "@vue/cli-plugin-eslint": "^3.5.1",
+    "@vue/cli-service": "^3.4.0",
+    "abigail": "^1.9.5",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.9.0",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

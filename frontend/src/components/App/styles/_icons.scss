@@ -1,0 +1,84 @@
+%icon {
+  display: inline-block;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.icon-experience,
+.icon-experiencias
+{
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/icon-experiencias.svg);
+  width: 18px;
+  height: 19px;
+}
+
+.icon-wellness,
+.icon-bienestar 
+{
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/icon-bienestar.svg);
+  width: 18px;
+  height: 11px;
+}
+
+.icon-education,
+.icon-educacion
+{
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/icon-educacion.svg);
+  width: 17px;
+  height: 18px;
+}
+
+.icon-home,
+.icon-hogar
+{
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/icon-hogar.svg);
+  width: 22px;
+  height: 17px;
+}
+
+.icon-entertainment,
+.icon-entretenimiento
+{
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/icon-entretenimiento.svg);
+  width: 17px;
+  height: 16px;
+}
+
+.icon-travels,
+.icon-viajes
+{
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/icon-viaje.svg);
+  width: 18px;
+  height: 14px;
+}
+
+.icon-lifestyle,
+.icon-estilo-de-vida
+{
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/icon-estilo-vida.svg);
+  width: 19px;
+  height: 16px;
+}
+
+.icon-user {
+  @extend %icon;
+  background-image: url(#{$static-path}/svg/user.svg);
+  width: 19px;
+  height: 19px;
+}
+
+.icon-plane {
+  @extend %icon;
+  background: url(#{$static-path}/svg/icon-flecha.svg) no-repeat 0 0;
+  background-size: 90%;
+  width: 241px;
+}
+

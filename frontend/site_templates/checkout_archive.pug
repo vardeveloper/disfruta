@@ -1,0 +1,20 @@
+extends checkout
+
+block data
+  |self.current_step = 3;
+  |self.category = {{ category|tojson }};
+  |self.data = {};
+  |self.data.is_archive = true;
+  |self.data.id = {{ gift.id|default('')|tojson }};
+  |self.data.type = {{ gift.type|default('')|tojson }};
+  |self.data.name = {{ gift.name|default('')|tojson }};
+  |self.data.store_name = {{ gift.store_name|default('')|tojson }};
+  |self.data.store_img = {{ gift.store_img|default('')|tojson }};
+  |self.data.coupon_type = {%- if gift.coupon_type  %}{{ gift.coupon_type|default('')|tojson }}{% else %}null{% endif -%};
+  |self.data.coupon_value = {%- if gift.coupon_value  %}{{ gift.coupon_value|default('')|tojson }}{% else %}null{% endif -%};
+  |self.data.slug = {{ gift.slug|default('')|tojson }};
+  |self.data.img = {{ gift.img|default('')|tojson }};
+  |self.data.code = {%- if checkout and checkout.stock and checkout.stock.code %}{{ checkout.stock.code|default('')|tojson }}{% else %}null{% endif -%};
+  |self.data.dateTimeLimit = '{{ checkout.last_exchange_date|default(0) }}';
+  |self.data.category_slug = '{{ gift.category.slug|default('') }}';
+  |self.data.category_id = '{{ gift.category.id|default('') }}';

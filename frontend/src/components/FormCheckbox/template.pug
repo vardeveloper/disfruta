@@ -1,0 +1,21 @@
+label.field-content(
+  :for='id'
+  @change='updated'
+)
+  span.field-main
+    span.field-label( :style='styleLabel') {{ label }}
+    
+    span.field-input(
+      :class="{'field-input-checked': value}"
+    )
+
+      input(
+        :id='id'
+        :name='name'
+        :type='type'
+        :checked='value'
+      )
+
+
+  template( v-for="error in errors" )
+    label.error( :for='id' ) {{ error }}

@@ -1,0 +1,45 @@
+extends checkout
+
+block data
+ |self.current_step = 1;
+ |self.total_steps = 0;
+ |self.category = {{ category|tojson }};
+ |self.name = {% if name %}'{{name}}'{% else %}null{% endif %};
+
+ |{% if form %}
+ |self.errorCustom = {%- if form and form.errors and form.errors.custom %}{{ form.errors.custom|tojson }}{% else %}null{% endif -%};
+ |self.form = {};
+ |{%- for field in form %}
+ |self.form[{{ field.name|tojson  }}] = {
+ |  label: {{ field.label.text|tojson }},
+ |  name: {{ field.name|tojson }},
+ |  id: {{ field.name|tojson }},
+ |  value: {{ field.data|tojson }},
+ |  errors: {{ field.errors|tojson }},
+ |  type: {{ field.type|tojson }},
+ |  options: []
+ |};
+ |{%- endfor -%}
+
+ |{%- if form.public_job %}
+ |self.form['sector'] = {
+ |  'label': 'Sector',
+ |  name: 'sector',
+ |  id: 'sector',
+ |  value: '',
+ |  errors: [],
+ |  type: 'SelectField',
+ |  options: []
+ |};
+ |self.form['job'] = {
+ |  'label': 'Cargo',
+ |  name: 'job',
+ |  id: 'job',
+ |  value: '',
+ |  errors: [],
+ |  type: 'SelectField',
+ |  options: []
+ |};
+ |{% endif -%}
+
+ |{% endif %}

@@ -1,0 +1,62 @@
+Form(
+  ref='form'
+  method="POST"
+  @submit='handleSubmit'
+  :isFormBusy='isFormBusy'
+  :submitSuccess='formSubmitSuccess'
+)
+  template( v-slot:header )
+    template( v-if='formSubmitSuccess')
+      p.form-message-success Gracias, tus datos fueron actualizados correctamente.
+      .buttons-center
+        a.button(
+          @click.prevent='handleCancelBtn'
+        ) Aceptar
+    template( v-else )
+      h3 Verifica tus datos
+
+  template( v-slot:main )
+    p.form-message-error(
+      v-if='errorCustom'
+      v-html='errorCustom'
+    )
+
+    input( type='hidden' name='_xsrf' :value='$store.state.handler.xsrf' )
+
+    FormInput(
+      label="Ingresa tu nuevo correo electrónico"
+      id='email'
+      name='email'
+      ref='email'
+      :errors='errorsEmail'
+      v-model='email'
+    )
+
+    FormInput(
+      label="Ingresa tu nuevo celular"
+      id='phone'
+      name='phone'
+      ref='phone'
+      :errors='errorsPhone'
+      v-model='phone'
+      :attrs="{ 'maxlength': 9 }"
+    )
+
+    p
+      small Estos datos se actualizarán en la base de datos de Profuturo AFP.
+
+    FormCheckbox(
+      label= 'Acepto los términos y condiciones de uso.'
+      id='term'
+      name='accept_terms'
+      :errors='errorsTerm'
+      v-model='term'
+      styleLabel='font-size: 12px'
+    )
+
+  template( v-slot:footer )
+    a.button-simple(
+      @click.prevent='handleCancelBtn'
+    ) Cancelar
+    button.button( type='submit' ) {{ submitLabel }}
+

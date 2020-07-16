@@ -1,0 +1,3 @@
+extends layout
+block data
+  |{%- if data %}self.detail = { "category": {{ category|tojson }},"data": {{ data|tojson }} };{% endif %}

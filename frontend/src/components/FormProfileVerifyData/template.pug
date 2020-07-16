@@ -1,0 +1,156 @@
+Form(
+  ref='form'
+  method="POST"
+  @submit='handleSubmit'
+  :isFormBusy='isFormBusy'
+  :submitSuccess='formSubmitSuccess'
+)
+  template( v-slot:header )
+    template( v-if='formSubmitSuccess')
+      p.form-message-success Gracias, tus datos fueron actualizados correctamente.
+      .buttons-center
+        a.button( 
+          @click.prevent='handleCancelBtn'
+        ) Aceptar
+    template( v-else )
+      h3 Hola
+        span(
+          v-if='name'
+        ) {{ name }}
+        | ,
+      p.subtitle ¡Estás muy cerca de canjear tu cupón! Ayúdanos completando la siguiente información por esta vez
+
+  template( v-slot:main )
+    p.form-message-error(
+      v-if='errorCustom'
+      v-html='errorCustom'
+    )
+
+    input( type='hidden' name='_xsrf' :value='$store.state.handler.xsrf' )
+
+    FormInput(
+      v-if='form.email'
+      label="Escribe tu correo"
+      id='email'
+      name='email'
+      ref='email'
+      :errors='errorsEmail'
+      v-model='email'
+    )
+
+    FormInput(
+      v-if='form.phone'
+      label="Escribe tu celular"
+      id='phone'
+      name='phone'
+      ref='phone'
+      :errors='errorsPhone'
+      v-model='phone'
+      :attrs="{ 'maxlength': 11 }"
+    )
+    
+    .field-label-radio
+      p ¿Eres una persona políticamente 
+        br 
+        | expuesta?
+
+        .icon-tooltip(
+          v-on:click='activeTooltip'
+        ) ?
+        
+        .info-tooltip(
+          ref='tooltip'
+        )
+          h3 ¿Quiénes son?
+          p
+            | Aquellas personas naturales (nacionales o extranjeras) que cumplen o han cumplido en los últimos 5 años funciones públicas importantes, sea en el territorio nacional o extranjero, y cuyas circunstancias financieras puedan ser objeto de interés. También, es considerado el colaborador directo de la máxima autoridad de la institución.
+
+          span(
+            v-on:click='closeTooltip'
+          ) Entendido
+
+        .radio-check
+          input(
+            id='radio1'
+            type='radio'
+            name='public_job'
+            value='1'
+            v-on:click='function1'
+            class='radio-input'
+          )
+
+          label(
+            for='radio1'
+          ).label-radio Sí
+
+        .radio-check
+          input(
+            id='radio2'
+            type='radio'
+            name='public_job'
+            value='0'
+            v-on:click='function2'
+            class='radio-input'
+          )
+
+          label(
+            for='radio2'
+          ).label-radio No
+
+      label(
+        v-if='public_job_error && public_job == null'
+      ).label-radio-error {{ public_job_error }}
+
+    FormInput(
+      v-if='form.description && !public_job'
+      :label="form.description.label"
+      :id='form.description.id'
+      :name='form.description.name'
+      ref='description'
+      :errors='form.description.errors'
+      v-model='description'
+    )
+
+    .fields
+      FormInput(
+        v-if='public_job && form.sector'
+        :label="form.sector.label"
+        :id='form.sector.id'
+        :name='form.sector.name'
+        ref='sector'
+        :errors='form.sector.errors'
+        v-model='sector'
+      )
+        template( v-slot:input )
+          select(
+            :id='form.sector.id'
+            :name='form.sector.name'
+          )
+            option( readonly )
+            template( v-for='item in form.sector.options' )
+              option( :value='item[0]') {{ item[1] }}
+
+      FormInput(
+        v-if='public_job && form.job && sector'
+        :label="form.job.label"
+        ref='job'
+        :errors='form.job.errors'
+        v-model='job'
+      )
+        template( v-slot:input )
+          select(
+            :id='form.job.id'
+            :name='form.job.name'
+          )
+            option( readonly )
+            template( v-for='item in form.job.options' )
+              option( :value='item[0]') {{ item[1] }}
+
+
+
+  template( v-slot:footer )
+    a.button-simple(
+      @click.prevent='handleCancelBtn'
+    ) Cancelar
+    button.button( type='submit' ) {{ submitLabel }}
+

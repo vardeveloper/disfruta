@@ -1,0 +1,35 @@
+Page
+  template( v-slot:header )
+    BaseHeader
+
+  template( v-slot:main )
+    Loader( v-if='isBusy' )
+
+    template( v-if='results && results.length > 0' )
+      h1.title Resultados de la b&uacute;squeda para
+        |  "{{ decodeURIComponent(query.q || '') }}"
+
+      .coupons
+        template( v-for='item in results' )
+          Coupon(
+            :name='item.name'
+            :coupon_type='item.coupon_type'
+            :coupon_value='item.coupon_value'
+            :excerpt='item.excerpt'
+            :highlight='item.highlight'
+            :id='item.id'
+            :slug='item.slug'
+            :store_name='item.store_name'
+            :store_img='item.store_img'
+            :img='(item.highlight)? item.img_large : item.img'
+            :cname="(item.category_slug)? 'page-' + item.category_slug : ''"
+            :category_slug='item.category_slug'
+            :category_id='item.category_id'
+          )
+    template( v-else )
+      .result( v-if='isBusy == 0' )
+        h1.title No se encontraron resultados para la b&uacute;squeda de:
+          |  "{{ decodeURIComponent(query.q || '') }}"
+
+  template( v-slot:footer )
+    Footer

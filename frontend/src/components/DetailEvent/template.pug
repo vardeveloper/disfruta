@@ -1,0 +1,93 @@
+.details-description
+  .details-d-1
+    .dtls(
+      v-if='data.place && data.taken_place_on'
+    )
+      p.dd--title
+        | Detalles del evento
+      
+      dl.dd-list
+        dt
+          span.dt-icon-day D&iacute;a:
+        dd
+          template( v-if='data.taken_place_on2' )
+            span {{ formatDate(data.taken_place_on, false, false) }} o {{ formatDate(data.taken_place_on2, false).toLowerCase() }}
+          template( v-else )
+            span {{ formatDate(data.taken_place_on) }}
+
+        dt
+          span.dt-icon-time Hora:
+        dd
+          template( v-if='data.taken_place_on2' )
+            span( v-html='data.taken_place_on' )
+
+          template( v-else )
+            template( v-if='data.start_on' )
+              span Ingreso: 
+                span( v-html='formatDateTime(data.taken_place_on)' )
+                br
+                | Inicio: 
+                span( v-html='formatDateTime(data.start_on)' )
+
+            template( v-else )
+              span( v-html='data.taken_place_on' )
+
+        template( v-if='data.invitataion_detail' )
+          dt
+            span.dt-icon-invitation Invitaci&oacute;n:
+          dd
+            span( v-html='data.invitataion_detail' )
+
+        template( v-if='data.has_combo' )
+          dt
+            span.dt-icon-combo Combo:
+          dd
+            span( v-html='data.combo_detail' )
+
+        template( v-if='data.has_seats' )
+          dt
+            span.dt-icon-seats Asientos:
+          dd
+            span( v-html='data.seats_detail' )
+
+    .dtls(
+      v-if='data.synopsis'
+    )
+      p.dd--title
+        | Sinposis
+
+      .dd--description( v-html='data.synopsis' )
+
+
+    .dtls(
+      v-if='data.cast'
+    )
+      p.dd--title
+        | Elenco
+
+      .dd--description( v-html='data.cast' )
+
+
+    .dtls(
+      v-if='data.disclaimer'
+    )
+      p.dd--title
+        | T&eacute;rminos y condiciones
+
+      .dd--description( v-html='data.disclaimer' )
+
+
+  .details-d-2
+    .dtls(
+      v-if='data.place && data.taken_place_on'
+    )
+      p.dd--title
+        | Locales
+      ul.dd-list-n
+        li
+          span( v-html='data.place' )
+
+    .map
+      Maps(
+        :pointers="locations"
+      )

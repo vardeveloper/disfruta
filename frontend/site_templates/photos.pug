@@ -1,0 +1,11 @@
+extends layout
+block data
+  |self.photos = {}
+  |self.photos.event = {
+  |id: {{ event.id|default('')|tojson }},
+  |name: {{ event.name|default('')|tojson }},
+  |slug: {{ event.slug|default('')|tojson }}
+  |};
+  |self.photos.photos = [{% for item in photos %}{
+  |id: {{ item.id|default('')|tojson }}
+  | },{% endfor %}];

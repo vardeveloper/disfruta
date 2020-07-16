@@ -1,0 +1,11 @@
+.page( :id='id' )
+  .page-wrap( ref='wrap' :class='wrapClass' )
+    .page-header( ref='header' )
+      slot( name='header' )
+
+    .page-main( ref='main' )
+      .page-main-inner
+        slot( name='main' )
+
+  .page-footer
+    slot( name='footer' )

@@ -1,0 +1,10 @@
+.banner.ratio-1280x500(
+  v-if="img"
+  :style="'background-image: url(' + img + ')'"
+)
+  .banner-content
+    .banner-txt
+      .icon( v-if='icon' :class='icon' )
+      p.descrip( v-html='description' )
+      a.button( :href="link" target="_blank" v-if="link" ) {{ linkLabel }}
+

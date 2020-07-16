@@ -1,0 +1,121 @@
+<mjml>
+  <mj-body background-color="#ffffff" width="600px">
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-group width="560px">
+        <mj-column>
+          <mj-social align="right" font-family="Arial, sans-serif" font-size="12px" icon-size="20px" border-radius="20px" mode="horizontal" inner-padding="2px">
+            <mj-social-element href="https://www.profuturo.com.pe/" color="#858585">
+              Síguenos en:&nbsp;
+            </mj-social-element>
+            <mj-social-element src="https://s3.amazonaws.com/comunicaciones.profuturo.com.pe/generales/383/d9czuLC.jpg" name="instagram" href="https://www.instagram.com/profuturo.afp/">
+            </mj-social-element>
+            <mj-social-element src="https://s3.amazonaws.com/comunicaciones.profuturo.com.pe/generales/383/HzN2dZD.jpg" name="facebook" href="http://www.facebook.com/profuturo.afp">
+            </mj-social-element>
+            <mj-social-element src="https://s3.amazonaws.com/comunicaciones.profuturo.com.pe/generales/383/M2WVI4D.jpg" name="twitter" href="http://twitter.com/Profuturo_AFP">
+            </mj-social-element>
+            <mj-social-element src="https://s3.amazonaws.com/comunicaciones.profuturo.com.pe/generales/383/hgAJ3A5.jpg" name="youtube" href="http://www.youtube.com/profuturoperu">
+            </mj-social-element>
+          </mj-social>
+        </mj-column>
+      </mj-group>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+        <mj-text color="#858585" font-family="Arial, sans-serif" font-size="18px">
+            Hola {{ user.primerNombre }},
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+        <mj-text color="#EE3224" font-family="Arial, sans-serif" font-size="25px" font-weight="bold" align="center" line-height="25px" padding="0px">
+            ¡Felicidades!
+        </mj-text>
+        <mj-text color="#EE3224" font-family="Arial, sans-serif" font-size="25px" font-weight="bold" align="center" line-height="25px" padding="0px">
+          Tu elección se ha realizado con éxito
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+        <mj-image src="{{ checkout.gift.img_big|trim }}" href="https://www.disfrutaprofuturo.com.pe/categoria/{{ checkout.gift.category.slug }}-{{ checkout.gift.category.id }}/{{ checkout.gift.slug }}-{{ checkout.gift.id }}/checkout/{{ checkout.uuid }}" />
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF" padding-top="0px" padding-bottom="0px">
+      <mj-column width="560px">
+        <mj-image 
+          href="https://www.disfrutaprofuturo.com.pe/categoria/{{ checkout.gift.category.slug }}-{{ checkout.gift.category.id }}/{{ checkout.gift.slug }}-{{ checkout.gift.id }}/checkout/{{ checkout.uuid }}"
+          width="124px" height="70px" src="{{ checkout.gift.store_img|trim }}" padding-top="0px" padding-bottom="0px"/>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+        <mj-text color="#419100" font-family="Arial, sans-serif" font-size="25px" font-weight="100" align="center" line-height="25px" padding-top="0px" padding-bottom="0px">
+          <a href="https://www.disfrutaprofuturo.com.pe/categoria/{{ checkout.gift.category.slug }}-{{ checkout.gift.category.id }}/{{ checkout.gift.slug }}-{{ checkout.gift.id }}/checkout/{{ checkout.uuid }}" style="color: #419100;"font-family="Arial, sans-serif" font-size="25px" font-weight="100" align="center" target="_blank">
+            {{ checkout.gift.name }}
+          </a>
+        </mj-text>
+        <mj-text color="#858585" font-family="Arial, sans-serif" font-size="16px" line-height="18px" align="center">
+          {{ checkout.gift.description }}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+        <mj-text align="center" color="#858585" font-family="Arial, sans-serif" font-size="40px" font-weight="bold" padding-top="0px" padding-bottom="0px">
+          {% if checkout.gift.coupon_type == 'before_after' %}
+            {% set value = checkout.gift.coupon_value.replace(' ', '').replace('dscto.', '').split('|') %}
+            <small><s>{{ value[0] }}</s></small>
+            <br/>
+            {{ value[1] }}
+          {% else %}
+            {{ checkout.gift.coupon_value }}
+          {% endif %}
+          {% if checkout.gift.coupon_type == 'percentage' %}
+            <span style="padding-left: 6px;">   de descuento.</span>
+          {% endif %}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-raw>
+      {%- if stock and stock.code %}
+    </mj-raw>
+    <mj-section>
+      <mj-group width="250px">
+        <mj-column border="1px solid #419100" padding="10px 0px 10px 0px">
+          <mj-text align="center" color="#858585" font-family="Arial, sans-serif" font-size="16px">
+            El c&oacute;digo para canjearlo es:
+          </mj-text>
+          <mj-text align="center" color="#419100" font-family="Arial, sans-serif" font-size="18px" font-weight="bold" padding-top="0px">
+            {{ stock.code }}
+          </mj-text>
+        </mj-column>
+      </mj-group>
+    </mj-section>
+    <mj-raw>
+      {%- endif %}
+    </mj-raw>
+        
+    <mj-section background-color="#FFFFFF">
+      <mj-column background-color="#CC171E" width="560px" padding-left="0px">
+        <mj-group vertical-align="top">
+          <mj-column background-color="#CC171E" padding-top="0px" padding-left="0px" padding-bottom="0px">
+            <mj-image align="left" href="#" padding="0px" width="140px" src="https://s3.amazonaws.com/comunicaciones.profuturo.com.pe/generales/383/4kVLojg.png" />
+          </mj-column>
+          <mj-column background-color="#CC171E">
+            <mj-image align="right" width="168px" padding="0" src="https://s3.amazonaws.com/comunicaciones.profuturo.com.pe/generales/383/JEq5kgo.png" />
+          </mj-column>
+        </mj-group>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>

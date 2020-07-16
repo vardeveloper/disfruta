@@ -1,0 +1,195 @@
+//colores
+@each $slug, $color in
+[bienestar,green],
+[educacion,blue],
+[hogar,yellow],
+[entretenimiento,purple],
+[viajes,pink],
+[estilo-de-vida,dark-green],
+[experiencias,gold]
+{
+  .page-#{$slug} .coupon-content {
+    background: url('#{$static-path}/svg/coupon-#{$color}-1.svg') no-repeat top right;
+  }
+  // Para cupones con cinta inferior
+  .page-#{$slug} .coupon-small-2 .coupon-content,
+  .page-#{$slug}.coupon-small-2 .coupon-content
+  {
+    background: url('#{$static-path}/svg/coupon-#{$color}-2.svg') no-repeat;
+  }
+}
+
+
+.coupon-small-2 {
+  .coupon-content{
+    width: 100%;
+    background-size:101% !important;
+    max-width: 100%;
+    background-position: bottom !important;
+  }
+  .coupon-store{
+    width: 34%;
+  }
+  .coupon-main{
+    width: 100%;
+    text-align: center;
+    padding: 0 7px 14px;
+    margin: 0;
+    //display: flex;
+    //padding: 0px 7px 7px;
+    //align-items: flex-end;
+    //justify-content: space-between;
+    //flex-direction: row-reverse;
+  }
+}
+
+//general
+.coupon {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  transition: opacity .2s ease-in-out;
+  height: 100%;
+}
+
+.coupon-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  display: block;
+  cursor: pointer;
+}
+
+.coupon-big .coupon-content{
+  max-width: 226px;
+}
+
+.coupon-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 208px;
+  height: 100%;
+  background-size: auto 101%;
+  transition: 1s;
+  z-index: 3;
+}
+
+.coupon-picture {
+  width: 100%;
+  min-height: 250px;
+  display: block;
+  transition: opacity .2s ease-in-out;
+}
+
+.coupon-store {
+  position: absolute;
+  top: 6%;
+  right: 0;
+  background-color: #FFF;
+  text-align: center;
+  padding: 0;
+  width: 96px;
+  height: 54px;
+  box-shadow: 3px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.store-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 2;
+}
+
+.coupon-main {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  width: 82%;
+  box-sizing: border-box;
+  padding: 11px;
+
+  p {
+    margin: 0;
+    color: #FFF;
+  }
+
+  .descrip {
+    font-size: 14px;
+    clear: right;
+  }
+
+  .title {
+    float: right;
+    font-size: 27px;
+    font-weight: bold;
+    line-height: 25px;
+    word-break: break-all;
+  }
+
+  .price-after {
+    font-size: 16px;
+    line-height: 23px;
+  }
+}
+
+.coupon-big {
+  width: 100%;
+  max-height: 250px;
+}
+
+@media only screen and (max-width:550px){
+  .coupon {
+    width: 99%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+  .coupon-big {
+    width: 99%;
+  }
+}
+
+@media only screen and (max-width:700px) and (min-width: 551px) {
+  .coupon {
+    width: 49%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+  .coupon-big {
+    width: 99%;
+  }
+}
+
+@media only screen and (max-width:980px) and (min-width: 701px){
+  .coupon {
+    width: 32.33%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+  .coupon-big {
+    width: 65.66%;
+  }
+}
+
+@media only screen and (min-width:981px){
+  .coupon {
+    width: 24%;
+    max-width: 300px;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+
+  .coupon-big {
+    width: 49%;
+    max-width: 610px;
+  }
+
+}

@@ -1,0 +1,188 @@
+.details-description {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 5%;
+  padding-bottom: 30px;
+}
+
+.details-d-1,
+.details-d-2{
+  display: inline-block;
+  width: 100%;
+}
+
+.dtls {
+  padding: 1px 0;
+}
+
+.dd--title{
+  color:#2f2f2f;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 30px 0px;
+}
+
+.dd--description {
+  font-size: 1em;
+  margin: 1em 0;
+}
+
+.dd-list-n,
+.dd-list {
+  color: #757575;
+  font-size: 16px;
+  line-height: 22px;
+  margin-left: 25px;
+  margin-right:25px;
+  padding: 0px;
+}
+
+.dd-list-n,
+.dd-list span{
+  color: #757575;
+  font-size:16px;
+}
+
+.dd-list-n{
+  list-style: none;
+  margin-left: 0px;
+}
+
+dl.dd-list {
+  padding: 0;
+  overflow: hidden;
+  margin: 0;
+
+  dt {
+    width: 20%;
+    float: left;
+    clear: right;
+    margin: 0 0 30px;
+  }
+
+  dd {
+    float: right;
+    width: 79%;
+    min-height: 30px;
+    margin: 0 0 30px;
+  }
+}
+
+.map{
+  margin-top: 30px;
+}
+
+%dt-icon {
+  padding-left: 30px;
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+  }
+}
+
+.dt-icon-day {
+  @extend %dt-icon;
+
+  &:before {
+    content: url(#{$static-path}/svg/date.svg);
+  }
+}
+
+.dt-icon-place {
+  @extend %dt-icon;
+
+  &:before {
+    content: url(#{$static-path}/svg/place.svg);
+  }
+}
+
+.dt-icon-time {
+  @extend %dt-icon;
+
+  &:before {
+    content: url(#{$static-path}/svg/time.svg);
+  }
+}
+
+.dt-icon-invitation {
+  @extend %dt-icon;
+
+  &:before {
+    content: url(#{$static-path}/svg/invitation.svg);
+  }
+}
+
+.dt-icon-seats {
+  @extend %dt-icon;
+
+  &:before {
+    content: url(#{$static-path}/svg/seats.svg);
+  }
+}
+
+.dt-icon-combo {
+  @extend %dt-icon;
+
+  &:before {
+    content: url(#{$static-path}/svg/combo.svg);
+  }
+}
+
+@media (min-width: 1425px) {
+  dl.dd-list {
+    dt { width: 14%; }
+    dd { width: 85%; }
+  }
+}
+
+@media (max-width: 1424px) {
+  dl.dd-list {
+    dt { width: 17%; }
+    dd { width: 82%; }
+  }
+}
+
+@media (max-width: 1024px) {
+  dl.dd-list {
+    dt { width: 22%; }
+    dd { width: 77%; }
+  }
+}
+
+@media (max-width: 720px) {
+  dl.dd-list {
+    dt { width: 32%; }
+    dd { width: 67%; }
+  }
+}
+
+@media (max-width: 580px) {
+  dl.dd-list {
+    dt { 
+      float: none;
+      width: 100%;
+      margin: 0 0 10px;
+    }
+    dd { 
+      float: none;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (min-width: 800px){
+  .details-d-1 {
+    display: inline-block;
+    width: 63%;
+  }
+
+  .details-d-2 {
+    display: inline-block;
+    width: 37%;
+  }
+}
+

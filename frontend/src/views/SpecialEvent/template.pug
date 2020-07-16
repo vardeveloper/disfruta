@@ -1,0 +1,58 @@
+Page(
+  class='details-experiencias page-experiencias'
+)
+  template( v-slot:header )
+    HeaderSimple(
+      hs_name='Experiencias'
+      icon_class="item-icon icon-experiencias"
+      :backUrl="($store.state.navigation.from.name == 'home')? '/' : '/categoria/' + $route.params.slug + '-' + $route.params.id"
+    )
+
+  template( v-slot:main )
+    template(
+      v-if='event && data'
+    )
+      .event-banner(
+        :style="'background-image: url(' + event.img_big + ')'"
+      )
+        .event-title( v-html='event.greeting' )
+
+      template(
+        v-if='data && data.length > 0'
+      )
+        template(
+          v-for='group in data'
+        )
+          .group
+            .group-title
+              .group-logo(
+                :style="'background-image: url(' + group.img + ');'"
+                :title='group.name'
+              )
+            .coupons
+              template(
+                v-for='item in group.items'
+              )
+                Coupon(
+                  class='coupon-small-2'
+                  :name='item.name'
+                  :type='item.type'
+                  :coupon_type='item.coupon_type'
+                  :coupon_value='item.coupon_value'
+                  :excerpt='item.excerpt'
+                  :highlight='item.highlight'
+                  :id='item.id'
+                  :slug='item.slug'
+                  :store_name='item.store_name'
+                  :store_img='item.store_img'
+                  :img='(item.highlight)? item.img_large : item.img',
+                  :category_slug='category.slug'
+                  :category_id='category.id'
+                )
+
+      template( v-else )
+        .coupons
+          p.center-message No hay nada que mostrar
+
+  template( v-slot:footer )
+    Footer

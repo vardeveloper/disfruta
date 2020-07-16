@@ -1,0 +1,4 @@
+extends layout
+block data
+  |{%- if profile %}self.profile = {{ profile|tojson }};{% endif %}
+  |{%- if error %}self.profile_error = {{ error|tojson }};{% endif %}

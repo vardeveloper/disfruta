@@ -1,0 +1,8 @@
+extends layout
+block data
+  |self.docNumber = {{ form.doc_number.data|default('')|tojson }};
+  |self.docType = {{ form.doc_type.data|default('')|tojson }};
+  |self.errorsDocNumber = {{ form.doc_number.errors|tojson }};
+  |self.errorsDocType = {{ form.doc_type.errors|tojson }};
+  |self.docTypeOptions = {{ form.doc_type.choices|tojson }};
+  |self.errorCustom = {%- if form and form.errors and form.errors.custom %}{{ form.errors.custom|tojson }}{% else %}null{% endif -%};

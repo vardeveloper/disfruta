@@ -1,0 +1,8 @@
+extends layout
+block data
+  |self.galleries = [{% for item in galleries %}{
+  |id: {{ item.id|default('')|tojson }},
+  |slug: {{ item.slug|default('')|tojson }},
+  |name: {{ item.name|default('')|tojson }},
+  |img: {{ item.img|default('')|tojson }},
+  |}{% endfor %}];

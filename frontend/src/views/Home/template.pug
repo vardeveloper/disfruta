@@ -1,0 +1,47 @@
+Page( id='home' :class='page_class' :wrapClass='stickClass' )
+  template(
+    v-slot:header
+  )
+    BaseHeader(
+      :category_slug='scroll_category_slug'
+      :category_name='scroll_category_name'
+    )
+
+  template( v-slot:main )
+    .section-home.section-item
+      .section-home-main
+        Banner(
+          v-if='banner && banner.img'
+          :img='banner.img'
+          :description='banner.description'
+          :link='banner.link'
+          linkLabel='Disfruta'
+        )
+
+        .partner( v-if='partnerLogos && partnerLogos.length > 0' )
+          .partner-content
+            .partner-text
+              span Disfruta de experiencias en establecimientos como:
+
+          #home-partner-company.partner-company
+            #home-partner-company-track.slide-track
+              template( v-for='logo in partnerLogos' )
+                img.slide-track-img( v-on:load='partnerLoad' style="opacity: 0" :src="logo.img" alt="Logo de local")
+
+      .section-home-footer
+        .icon-scroll-static-2( @click='handlerIconScroll')
+          img.icon-scroll-img(:src="handler.static_url + 'image/icon-scroll-arrow.png' " alt="Scroll")
+
+    template(
+      v-for='section in sections'
+    )
+      Category(
+        :class='"section-" + section.slug'
+        :slug='section.slug'
+        :id='section.id',
+        :visible='section.visible'
+        v-on:loadedData='loadedDataCategory'
+      )
+
+  template( v-slot:footer )
+    Footer

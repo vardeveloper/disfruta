@@ -1,0 +1,229 @@
+.page.v-enter-active {
+  transition: opacity .2s ease-in-out;
+}
+
+.detail-banner {
+  position: relative;
+
+  .banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+.banner-side-background {
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: rgba(255,255,255,.9);
+}
+
+.curve {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: block;
+}
+
+.details-b-descrip {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.details--cont {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px 3.21%;
+}
+
+.details--bd-logo{
+  width: 100%;
+  margin: 0 auto;
+  height: 70px;
+  background-color: transparent;
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+.details--bd-logo img {
+  display: block;
+  width: 100%;
+}
+
+.details--bd-logo svg {
+  height: 45px;
+  display: block
+}
+
+.details-b-descrip h3 {
+  color: #2f2f2f;
+  margin: 20px 0px;
+  font-weight: normal;
+}
+
+.details-b-descrip .price{
+  font-size: 44px;
+  // line-height: 55px;
+  font-weight: bold;
+  margin: 20px 0px 0;
+}
+
+.price-after {
+  font-size: 20px;
+}
+
+.icon-scroll {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  padding: 1px 0 0;
+}
+
+.button {
+  width: 100%;
+  margin: 14px auto 0;
+}
+
+.dd-terminos{
+  max-width: 450px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.price-after{
+  font-size: 20px;
+}
+
+.price-before{
+  font-size: 54px;
+}
+
+.details-bienestar .details-cat{
+  &:before{
+    content: url(#{$static-path}/svg/icon-bienestar.svg);
+  }
+}
+
+.details-estilo-de-vida .details-cat{
+  &:before{
+    content: url(#{$static-path}/svg/icon-estilo-vida.svg);
+  }
+}
+
+.details-entretenimiento .details-cat{
+  &:before{
+    content: url(#{$static-path}/svg/icon-entretenimiento.svg);
+    height: 16px;
+  }
+}
+
+.details-hogar .details-cat{
+  &:before{
+    content: url(#{$static-path}/svg/icon-hogar.svg);
+  }
+}
+
+.details-viajes .details-cat{
+  &:before{
+    content: url(#{$static-path}/svg/icon-viaje.svg);
+  }
+}
+
+.details-educacion .details-cat{
+  &:before{
+    content: url(#{$static-path}/svg/icon-educacion.svg);
+  }
+}
+
+.details-experiencias .details-cat{
+  &:before{
+    content: url(#{$static-path}/svg/icon-experiencias.svg);
+  }
+}
+
+.button-disabled {
+  cursor: default !important;
+  background-color: #CCC !important;
+}
+
+.stock-empty {
+  font-size: 14px;
+  text-align: center;
+  max-width: 264px;
+  width: 100%;
+}
+
+@media only screen and(max-width: 480px){
+  .stock-empty {
+    max-width: 100%;
+  }
+}
+@media only screen and(min-width: 480px){
+  .details--cont h3 {
+    font-size: 30px;
+  }
+
+  .button {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media only screen and (max-width: 980px){
+  #Details header .header-main_nav_main{
+    display: flex !important;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .banner-side-background,
+  .details--cont {
+    width: 60%;
+  }
+
+  .details--cont {
+    padding: 71px 8% 20px;
+  }
+}
+
+@media only screen and (min-width:990px) {
+  .details--cont,
+  .banner-side-background {
+    width: 44%;
+  }
+
+  .details-b-descrip .price{
+    font-size: 54px;
+    margin-top: 30px;
+  }
+
+  .price-after {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width:1800px) {
+  .details-b-descrip .price {
+    font-size: 64px;
+    margin-top: 40px;
+  }
+
+  .price-after {
+    font-size: 30px;
+  }
+}

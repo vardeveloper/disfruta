@@ -1,0 +1,25 @@
+// prueba cupon
+.section-category {
+  // min-height: calc(100vh - 45px);
+  padding-top: 45px;
+  position: relative;
+}
+.coupons {
+  width:100%;
+  //max-width: 1230px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  background: none;
+}
+
+@media (max-width: 480px) {
+  .section-loaded {
+    padding-top: 0;
+    min-height: 250px;
+  }
+
+  .section-category:nth-child(2) {
+    padding-top: 45px;
+  }
+}

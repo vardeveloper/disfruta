@@ -1,0 +1,38 @@
+.details-description
+  .details-d-1
+    .dtls(
+      v-if='data.pre'
+    )
+      p.dd--title
+        | Este beneficio incluye
+
+      .dd--description( v-html='data.pre' )
+
+    .dtls(
+      v-if='data.disclaimer'
+    )
+      p.dd--title
+        | T&eacute;rminos y condiciones
+
+      .dd--description( v-html='data.disclaimer' )
+
+  .details-d-2
+    .dtls(
+      v-if='data.delivery_type'
+    )
+      p.dd--title
+        | Tipo de entrega
+
+      .dd--description(
+        v-if='(["delivery", "delivery_full"].indexOf(data.delivery_type) !== -1)'
+      )
+        .tag-description
+          span.icon.icon-delivery
+          span.label Disponible para env&iacute;o a domicilio.
+
+      .dd--description(
+        v-if='(["pickup"].indexOf(data.delivery_type) !== -1)'
+      )
+        .tag-description
+          span.icon.icon-delivery-store
+          span.label Disponible para recojo en tienda.

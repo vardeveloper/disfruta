@@ -1,0 +1,35 @@
+.details-description
+  .details-d-1
+    .dtls(
+      v-if='terms_and_conditions && terms_and_conditions.length > 0'
+    )
+      p.dd--title
+        | T&eacute;rminos y condiciones
+
+      .dd-terminos(
+        v-if='terms_and_conditions && terms_and_conditions.length > 0'
+      )
+        ul.dd-list
+          template( v-for="item in terms_and_conditions" )
+            template( v-if="item.charAt(item.length -1) === ':'")
+              li.dd-list-title
+                strong( v-html='item' )
+            template( v-else )
+              li( v-html='item' )
+
+  .details-d-2
+    .dtls(
+      v-if='data.locations && data.locations.length > 0'
+    )
+      p.dd--title
+        | Locales
+      
+      ul.dd-list-n
+        li(v-for="address in data.locations")
+          span( v-html='address.address' ) - 
+          span( vhtml='address.name' )
+      
+    .map
+      Maps(
+        :pointers="data.locations"
+      )

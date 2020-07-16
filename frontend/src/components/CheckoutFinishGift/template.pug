@@ -1,0 +1,46 @@
+.box
+  h3 &iexcl;Felicidades!
+  p 
+    span.newline Has elegido
+    strong( v-html='name' )
+
+  .store-logo(
+    :style="'background-image: url(\"' + store_img.split(' ').join('%20') + '\");'"
+    :title='store_name'
+  )
+
+  .picture
+    img( :src='img' )
+
+
+  p(
+    v-if='code'
+  )
+    span.newline El c&oacute;digo para canjearlo es:
+    strong( v-html='code' )
+
+  p(
+    v-if='address'
+  )
+    span.newline Tu regalo ser&aacute; enviado a:
+    strong( v-html='address' )
+
+  p(
+    v-if='deliveryDate'
+  )
+    span.newline Fecha de entrega: 
+    strong( v-html='deliveryDate' )
+
+  p(
+    v-if='deliveryTime'
+  )
+    span.newline Rango de hora de entrega:
+    strong De 
+      span( v-html='deliveryTime' )
+
+  p(
+    v-if='address'
+  ) Recuerda que solo se realizar&aacute; el intento de enterga una vez
+
+  .buttons-center
+    a.button( href='/' ) Disfruta m&aacute;s beneficios

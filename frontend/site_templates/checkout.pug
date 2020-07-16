@@ -1,0 +1,27 @@
+extends layout
+
+block data
+
+block body
+  script#checkout( type='text/x-template' )
+    PageLogin(
+      :class!="(category && category.length > 0 && category[2] === 'experiencias')? 'details-' + category[2] : ''"
+    )
+      template( v-slot:header )
+        HeaderSimple( noNav='true' )
+
+      template( v-slot:main )
+        #main
+          block main
+            block stepLabel
+            component(
+              :is='mainComponent' 
+              :formTitle='formTitle'
+              :allowNormalSubmit='true'
+              :requestProfileOnInit='true'
+              submitLabel='Continuar'
+              @cancel='handleCancelBtn'
+            )
+
+      template( v-slot:footer )
+        Footer

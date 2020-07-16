@@ -1,0 +1,25 @@
+menu#sidebar(
+  v-on:click="handleMenu"
+)
+  #sidebar_inner
+    #sidebar_header
+      a#sidebar_logo( href='' ) 
+        LogoDisfruta
+
+    #sidebar_secundary
+      a.item( :href="($store.state.currentUser)? '/perfil' : '/login'" )
+        span.item-icon.icon-user
+        span.item-label 
+          template( v-if='$store.state.currentUser' ) Mi Perfil
+          template( v-else ) Ingresar
+
+    #sidebar_main
+      p.item-title Categor&iacute;as 
+
+      template( v-for="item in menu" )
+        router-link.item( 
+          :to="'/categoria/'+item.slug+'-'+item.id"
+          @click.native='handleClickItemMenu'
+        )
+          span.item-icon( :class="'icon-'+item.slug" )
+          span.item-label {{ item.name }}

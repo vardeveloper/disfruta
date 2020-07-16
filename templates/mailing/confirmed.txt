@@ -1,0 +1,12 @@
+Hola {{ user.primerNombre }}
+
+Felicidades
+Tu eleccion se ha realizado con exito
+
+{{ checkout.gift.name }}
+{{ checkout.gift.description }}
+{{ checkout.gift.coupon_value }}
+
+{%- if stock and stock.code %}
+{{ checkout.stock.code }}
+{%- endif %}

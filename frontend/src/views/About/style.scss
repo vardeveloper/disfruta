@@ -1,0 +1,82 @@
+.banner {
+  background-image: url(#{$static-path}/image/about-m.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  min-height: 243px;
+
+  .banner-content-about{
+    display: flex;
+    flex-wrap: wrap;
+    height: 152px;
+    width: 67%;
+    margin: 0 auto;
+    transform: translateY(0px);
+    position: relative;
+
+    h1{
+      color: #EE3224;
+      font-size:34px;
+      margin: 0px;
+      width: 100%;
+      transform: translateX(-1px)
+    }
+
+    img{
+      display: block;
+      max-width: 268px;
+      transform: translateY(-10px);
+    }
+  }
+}
+
+.cols {
+  max-width: 998px;
+  width: 90%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding-top: 46px;
+  padding-bottom: 29px;
+  column-count:1;
+  column-gap: 0px;
+  line-height: 1.5rem;
+
+  p {
+    &:first-child{
+      margin-top: 0px;
+    }
+  }
+}
+
+@media only screen and (min-width:480px){
+  .banner{
+    background-image: url(#{$static-path}/image/about.jpg);
+    .banner-content-about{
+      width: 76%;
+      transform: translateY(-20px);
+      img{
+        max-width: 295px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:600px){
+  .page-about{
+    .cols {
+      flex: 1;
+      .col{
+        column-count:2;
+        column-gap: 60px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:1150px){
+  .banner{
+    max-height: 500px;
+  }
+}

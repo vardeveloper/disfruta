@@ -1,0 +1,74 @@
+Page(
+  v-bind:class="'details-' + $route.params.slug"
+)
+  template( v-slot:header )
+    HeaderSimple(
+      ref="headerSimple"
+      :hs_name="(category)? category.name : ''"
+      :icon_class="(category)? 'item-icon icon-' + category.slug: ''"
+      :backUrl="backUrl"
+    )
+
+  template(
+    v-slot:main
+  )
+    Loader( v-if='isBusy' )
+
+    template(
+      v-if="data && category && category.name && data.name"
+    )
+      .detail-banner.ratio-1280x500
+        .banner.ratio-1280x500(
+          :style="'background-image: url(' + data.img_big.split(' ').join('%20') + ')'"
+        )
+          img.curve(:src="handler.static_url + 'image/curve.png'")
+
+        .banner-side-background
+
+        .details-b-descrip
+          .details--cont
+            .details--bd-logo(
+              :style="'background-image: url(\"' + data.store_img.split(' ').join('%20') + '\");'"
+            )
+
+            h3( v-html='data.name' )
+
+            p( v-html='data.description' )
+
+            div
+              p.price( v-if="data.coupon_type === 'before_after' " )
+                s.price-after  {{ value[0] }}
+                br
+                span.price-before {{ value[1] }}
+              p.price(v-else)
+                | {{ value }}
+
+              template( v-if="data.total_stock !== -1 &&  data.used_stock >= data.total_stock" )
+                span.button.button-disabled(
+                ) &iexcl;Lo quiero!
+                p.stock-empty Stock agotado
+
+              template( v-else )
+                a.button(
+                  :href="'/categoria/' + category.slug + '-' + category.id + '/' + data.slug + '-' + data.id + '/checkout'"
+                ) &iexcl;Lo quiero!
+
+      .icon-scroll
+        img.icon-scroll-img(:src="handler.static_url + 'image/icon-scroll-arrow.png'" alt="Scroll")
+
+      component(
+        v-on:mounted='mainComponentMounted'
+        v-if='category && category.slug'
+        :is='mainComponent'
+        :data='data'
+        :category='category'
+      )
+    template(
+      v-else
+    )
+      p.center-message(
+        v-if='isBusy === 0'
+      ) No hay nada que mostrar
+
+  template( v-slot:footer )
+    Footer

@@ -1,0 +1,31 @@
+extends checkout
+
+block data
+  |self.current_step = 2;
+
+  |self.address = {{ form.address.data|default('')|tojson }};
+  |self.reference = {{ form.address_reference.data|default('')|tojson }};
+  |self.phone = {{ form.phone.data|default('')|tojson }};
+
+  |self.errorCustom = {%- if form and form.errors and form.errors.custom %}{{ form.errors.custom|tojson }}{% else %}null{% endif -%};
+
+  |self.errorsPhone = {{ form.phone.errors|tojson }};
+  |self.errorsAddress = {{ form.address.errors|tojson }};
+
+  |{% if form.district %}
+  |self.districtOptions = [{% for item in form.district.iter_choices() %}{{ item|tojson }}{% if not loop.last %},{% endif %}{% endfor %}];
+  |self.errorsDistrict = {{ form.district.errors|tojson }};
+  |self.district = {% if form.district.data and form.district.data.id %}"{{ form.district.data.id }}"{% else %}null{% endif %};
+  |{% endif %}
+
+  |{% if form.delivery_time %}
+  |self.deliveryTimeOptions = [{% for item in form.delivery_time.iter_choices() %}{{ item|tojson }}{% if not loop.last %},{% endif %}{% endfor %}];
+  |self.errorsDeliveryTime = {{ form.delivery_date.errors|tojson }};
+  |self.deliveryTime = {% if form.delivery_time.data != "None" and form.delivery_time.data %}{{ form.delivery_time.data|tojson }}{% else %}null{% endif %};
+  |{% endif %}
+
+
+  |{% if form.delivery_date %}
+  |self.errorsDeliveryDate = {{ form.delivery_date.errors|tojson }};
+  |self.deliveryDate = {{ form.delivery_date.data|default('')|tojson }};
+  |{% endif %}

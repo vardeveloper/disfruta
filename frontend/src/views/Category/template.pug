@@ -1,0 +1,35 @@
+Page(
+  v-bind:class="'page-' + $route.params.slug"
+)
+  template( v-slot:header )
+    BaseHeader
+
+  template( v-slot:main )
+    Loader( v-if='isBusy' )
+
+    .section-banner(
+      v-if='banner && banner.img'
+    )
+      .section-banner-main
+        Banner(
+          :img='banner.img'
+          :description='banner.description'
+          :link='banner.link'
+          linkLabel='Disfruta'
+          icon='icon-experiencias'
+        )
+
+    template( v-if='emptyMessage' )
+      p.center-message No hay nada que mostrar
+
+    Category(
+      v-show='!isBusy'
+      :slug='$route.params.slug'
+      :id='$route.params.id',
+      visible='1'
+      v-on:loadedData='loadedDataCategory'
+      v-on:beforeLoadData='beforeLoadData'
+    )
+
+  template( v-slot:footer )
+    Footer

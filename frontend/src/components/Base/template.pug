@@ -1,0 +1,26 @@
+#base-content(
+  :class="((sidebarActive)? 'js-menu-show': '') + ' ' + ((move_x != 0)? 'js-touch-moved' : '')"
+)
+  BaseSidebar
+
+  section#main_section.container(
+    ref='content'
+    v-touch:start='touchStartContent'
+    v-touch:moving='touchStartContent'
+    v-touch:end='touchStartContent'
+    :style="(move_x != 0)? 'left:' + move_x + 'px' : ''"
+  )
+    #main_section_menu_overlay_trigger(
+      v-on:click='handleMenu'
+    )
+
+    #main_inner
+      transition(
+        mode='out-in'
+        v-on:before-enter='beforeEnter'
+        v-on:enter='enter'
+        v-on:leave='leave'
+      )
+        router-view
+
+      a#top( href="#view-disfruta" title="Subir") &#10094;

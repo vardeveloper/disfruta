@@ -1,0 +1,47 @@
+.acount-inf( :class="{ 'loading': isLoading }" )
+  .info-card
+    .info-overlay
+    p Verifica si tus datos son correctos:
+
+    .form-message-error(
+      v-if='error'
+    ) {{ error }}
+
+    template(
+      v-if='!error'
+    )
+      .card-data
+
+        div
+          span Nombres
+          p( v-if='profile.name1 || profile.name2' ) {{ profile.name1 }} {{ profile.name2 }}
+          p( v-else ) -
+
+        div
+          span Apellidos
+          p( v-if='profile.last_name1 || profile.last_name2' ) {{ profile.last_name1 }} {{ profile.last_name2 }}
+          p( v-else ) -
+
+        div
+          span Correo electr&oacute;nico
+          p.mail( v-if='profile.email' ) {{ profile.email }}
+          p.mail( v-else ) -
+
+        div
+          span Celular
+          p( v-if='profile.phone' ) {{ profile.phone }}
+          p( v-else ) - 
+
+      .buttons
+        a.button(
+          :class="{ 'button-loading': isLoadingProfile }"
+          @click.prevent='getProfileData'
+        ) Actualiza tus datos
+
+  Modal(
+    v-if="profileEditForm"
+  )
+    component( 
+      :is='modalComponent' 
+      @cancel='handleCloseEditForm'
+    )

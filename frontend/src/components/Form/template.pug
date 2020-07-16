@@ -1,0 +1,18 @@
+.form(
+  :class="{'form-loading': isFormBusy}"
+)
+  .form-title
+    slot( name='header' )
+
+  form(
+    ref='form'
+    :action='action'
+    :method='method'
+    v-if='!submitSuccess'
+    @submit='handleSubmit'
+  )
+    .form-overlay
+    slot( name='main' )
+
+    .buttons-center
+      slot( name='footer' )

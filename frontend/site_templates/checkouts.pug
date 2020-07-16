@@ -1,0 +1,7 @@
+extends layout
+
+block data
+  |self.couponsHistory = [{% for group in coupons %}
+  |{ date: "{{ group.date }}", items: {{ group.get('items')|tojson }} }
+  |{%- if not loop.last %},{% endif -%}
+  |{% endfor %}];

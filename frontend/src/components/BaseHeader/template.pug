@@ -1,0 +1,49 @@
+header.header-main(
+  :style="(this.$store.state.main_left != 0)? 'left:' + this.$store.state.main_left + 'px' : ''"
+)
+  .header-main_brand
+    router-link#logo( to="/" ) Disfruta Profuturo
+    #logo_profuturo Profuturo
+
+  nav.header-main_nav
+    button.header-main_nav_button(
+      v-on:click='handleMenu'
+    )
+      .imenu
+
+    .header-main_nav_mobile(
+      v-if='(category_slug && category_name) || ($route.params && $route.params.slug)'
+    )
+      span( :class="'item-icon icon-' + ((category_slug)? category_slug : $route.params.slug)" )
+      span {{ (category_name)? category_name : ($store.state.menu_index[$route.params.slug] || {}).name || '' }}
+
+    .header-main_nav_main
+      template( v-for="item in menu" )
+        router-link.item( 
+          :class="'item-' + item.slug"
+          :to='"/categoria/" + item.slug + "-" + item.id'
+          @click.native='handleClickItemMenu'
+        )
+          span.item-icon( :class="'icon-'+item.slug" )
+          span.item-label {{ item.name }}
+
+    .header-main_nav_secundary
+      .header-main_search( :class="{ 'js-use-form': isOpen }" )
+        label( for='header_search_input' )
+        input.header-main_search_input( 
+          id='header_search_input'
+          :value='searchValue'
+          name='q' type='text' placeholder='Buscar'
+          ref='searchInput' v-on:keydown='handleKeydown'
+          @focusin='showSearchInput'
+          @focusout='showSearchInput'
+        )
+        button.header-main_search_button( 
+          type='submit' 
+          @click='handleSearch'
+          @focusin='stopShowSearchInput'
+          :class="{'searched': isSearched }"
+        ) Buscar
+
+      a#login_user_btn.item( :href="($store.state.currentUser)? '/perfil' : '/login'" )
+        span.item-icon.icon-user

@@ -1,0 +1,132 @@
+.header-main {
+  background: #FFF;
+  width: 100%;
+  transition: top .2s ease-in-out, left .2s ease-in-out;
+  z-index: 100;
+}
+
+.header-icon-back {
+  width: 20px;
+}
+
+.header-main_brand {
+  width: 95.5%;
+  height: 72px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+#logo {
+  display: block;
+  width: 111px;
+  height: 42px;
+  background: transparent url(#{$static-path}/svg/logo-disfruta.svg) no-repeat 0 0;
+  text-indent: -999em;
+}
+
+#logo_profuturo {
+  display: block;
+  width: 135px;
+  height: 47px;
+  background: transparent url(#{$static-path}/svg/logo-profuturo.svg) no-repeat 0 0;
+  text-indent: -999em;
+}
+
+.details-experiencias #logo_profuturo {
+  width: 253px;
+  background: transparent url(#{$static-path}/svg/logo-profuturo-premium.svg) no-repeat 0 0;
+}
+
+.details-experiencias #logo {
+  background: transparent url(#{$static-path}/svg/logo-disfruta-premium.svg) no-repeat 0 0;
+}
+
+.header-main_nav {
+  background: #EE3224;
+  display: flex;
+  height: 45px;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-main_nav_simple {
+  display: flex;
+  height: 45px;
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 18px;
+  justify-content: space-between;
+
+  a{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  img{
+    display: block;
+  }
+
+  .details-cat{
+    transition: opacity .2s ease-in-out;
+    color:#fff;
+    margin:0 0 0 15px;
+    opacity: 0;
+    &:before{
+      height: auto;
+      width:19px;
+      margin-right: 7px;
+      display: inline-block;
+    }
+
+    span {
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  }
+}
+
+//- Estilos para vistas por diferencia de tamaños
+
+.page-acount{
+  .header-main_nav_simple{
+    padding: 0 20px;
+    .details-cat{
+      margin: 0 0 0 20px;
+    }
+  }
+}
+
+//- Fin
+
+
+@media (max-width: 480px) {
+  #logo {
+    width: 79px;
+    height: 30px;
+  }
+
+  #logo_profuturo {
+    width: 93px;
+    height: 32px;
+  }
+
+  .details-experiencias #logo_profuturo {
+    width: 177px;
+  }
+
+  .header-main_brand {
+    height: 51px;
+    width: 92.2%;
+  }
+
+  .header-main_nav {
+    height: 40px;
+  }
+
+  .header-main_nav_simple{
+    height: 40px;
+  }
+}

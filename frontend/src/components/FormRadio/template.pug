@@ -1,0 +1,19 @@
+label.field-content(
+  :for='id'
+  @change='updated'
+)
+  span.field-main
+    span.field-input(
+      :class="{'field-input-checked': value_}"
+    )
+
+      input(
+        :id='id'
+        :name='name'
+        type='radio'
+        :checked='checked'
+        :value='value'
+        v-on:change='check'
+      )
+
+    span.field-label( :style='styleLabel') {{ label }}

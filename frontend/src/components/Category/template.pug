@@ -1,0 +1,26 @@
+.section-category( :class='{"section-loaded": coupons }' )
+  Loader( v-if='isBusy' )
+  .coupons( :class='"page-" + slug' )
+    template(
+      v-if='coupons && coupons.data && coupons.data.length > 0'
+    )
+      template(
+        v-for='item in coupons.data'
+      )
+        Coupon(
+          :class='(slug == "experiencias")? "coupon-small-2": ""'
+          :href="(item.type === 'special-event')? '/evento-especial/' + slug + '-' + id + '/' + item.slug + '-' + item.id : null"
+          :name='item.name'
+          :type='item.type'
+          :coupon_type='item.coupon_type'
+          :coupon_value='item.coupon_value'
+          :excerpt='item.excerpt'
+          :highlight='item.highlight'
+          :id='item.id'
+          :slug='item.slug'
+          :store_name='item.store_name'
+          :store_img='item.store_img'
+          :img='(item.highlight)? item.img_large : item.img',
+          :category_slug='slug'
+          :category_id='id'
+        )

@@ -1,0 +1,62 @@
+.pad {
+  display: flex;
+
+  .key {
+    display: flex;
+    height: 38px;
+    background: #F1F1F1;
+    color: #757575;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s ease-out;
+
+    &:active {
+      background: #CCC;
+    }
+  }
+
+  .keys {
+    width: 84.53%;
+    display: flex;
+    flex-flow: wrap;
+  }
+
+  .clear {
+    width: 15.47%;
+    padding-bottom: 5px;
+    padding-bottom: 5px;
+
+    .key {
+      min-height: 81px;
+      position: relative;
+
+      &:before {
+        content: "";
+        background-image: url('#{$static-path}/image/delete.png');
+        width: 23px;
+        height: 17px;
+        display: block;
+      }
+    }
+  }
+
+  .slot {
+    display: block;
+    width: 20%;
+    box-sizing:border-box;
+    flex-basis: 20%;
+    padding-right: 5px;
+    padding-bottom: 5px;
+  }
+
+}
+
+.ie11 {
+  .slot {
+    width: 18.5%;
+    flex-basis: 18.5%;
+  }
+}

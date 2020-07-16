@@ -1,0 +1,33 @@
+Page(
+  class='page-acount'
+  v-bind:class='{"details-experiencias": premium }'
+)
+  template( v-slot:header )
+    HeaderSimple( hs_name="Inicio" backUrl='/')
+      a#logout( href='/logout' ) Cerrar sesi&oacute;n
+
+  template( v-slot:main )
+    #acount-main
+      .acount-sidebar
+        h2 Mi perfil
+        router-link.option-list(
+          to="/perfil"
+        )
+          | Mis datos
+
+        router-link.option-list(
+          :to="{ name: 'checkouts' }"
+        )
+          | Cupones canjeados
+
+        router-link.option-list.to-children(
+          v-if='$store.state.currentUser && $store.state.currentUser.premium'
+          :to="{ name: 'galleries' }"
+        )
+          | Galer&iacute;a de fotos de eventos
+
+      .acount-container
+        router-view
+
+  template( v-slot:footer )
+    Footer

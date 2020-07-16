@@ -1,0 +1,73 @@
+@import '../App/styles/colors';
+
+.form-inline {
+  position: relative;
+  opacity: 0.5;
+  transition: opacity .2s ease-in-out;
+
+  .form-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+  }
+}
+
+.form-loaded {
+  opacity: 1;
+
+  .form-overlay {
+    display: none;
+  }
+}
+
+.main-inner {
+  width: 90%;
+  max-width: 532px;
+  margin: 0 auto;
+  padding-top: 45px;
+}
+
+.title {
+  font-size: 30px;
+  margin: 0 0 7px;
+  text-align: center;
+  color: $rojo;
+}
+
+.description {
+  font-size: 15px;
+  margin: 0;
+  padding-bottom: 30px;
+  text-align: center;
+  color: #757575;
+}
+
+.buttons {
+  padding-top: 10px;
+  text-align: center;
+
+  .button {
+    margin: 0 auto;
+  }
+}
+
+form {
+  max-width: 420px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.disclaimer {
+  font-size: 13px;
+  text-align: center;
+  padding: 11px 0 0;
+
+  a {
+    font-size: 13px;
+    color: #757575;
+    text-decoration: underline;
+  }
+}

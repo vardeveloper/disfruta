@@ -1,0 +1,119 @@
+<mjml>
+  <mj-body background-color="#eeeeee" width="600px">
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-group width="560px">
+        <mj-column>
+          <mj-social align="right" font-family="Arial, sans-serif" font-size="12px" icon-size="20px" border-radius="20px" mode="horizontal" inner-padding="2px">
+            <mj-social-element href="https://mjml.io/" color="#858585">
+              Síguenos en:&nbsp;
+            </mj-social-element>
+            <mj-social-element src="https://i.imgur.com/d9czuLC.jpg" name="instagram" href="https://mjml.io/">
+            </mj-social-element>
+            <mj-social-element src="https://i.imgur.com/HzN2dZD.jpg" name="facebook" href="https://mjml.io/">
+            </mj-social-element>
+            <mj-social-element src="https://imgur.com/M2WVI4D.jpg" name="twitter" href="https://mjml.io/">
+            </mj-social-element>
+            <mj-social-element src="https://i.imgur.com/hgAJ3A5.jpg" name="youtube" href="https://mjml.io/">
+            </mj-social-element>
+          </mj-social>
+        </mj-column>
+      </mj-group>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+        <mj-text color="#858585" font-family="Arial, sans-serif" font-size="18px">
+            Hola Fiorella,
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+        <mj-text align="center" color="#858585" font-family="Arial, sans-serif" font-size="16px">
+          El siguiente afiliado ha elegido:
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF" padding-top="0px" padding-bottom="0px">
+      <mj-column width="560px">
+				<mj-image width="50px" src="https://imgur.com/dgZSNfM.png" padding-top="0px" padding-bottom="0px"/>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+				<mj-text color="#419100" font-family="Arial, sans-serif" font-size="25px" font-weight="100" align="center" line-height="25px" padding-top="0px" padding-bottom="0px">
+          ¡Rico y saludable!
+        </mj-text>
+				<mj-text color="#419100" font-family="Arial, sans-serif" font-size="25px" font-weight="100" align="center" line-height="25px" padding-top="0px">
+          Descuentos en jugos detox
+        </mj-text>
+        <mj-text align="center" color="#858585" font-family="Arial, sans-serif" font-size="16px">
+          <b>20%</b> de descuento
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column width="560px">
+				<mj-text align="center" color="#000000" font-family="Arial, sans-serif" font-size="18px" font-weight="bold" padding-top="0px" padding-bottom="0px">Datos del afiliado</mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF" padding="0px">
+      <mj-column width="560px" padding="0px">
+		    <mj-divider border-width="1px" border-style="solid" border-color="lightgrey" padding="0px"/>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#ffffff">
+      <mj-column width="560px">
+  			<mj-table padding-left="10px" padding-right="10px">
+            <tr style="text-align:left;">
+              <td style="color: #2F2F2F; padding: 0;">Nombre:</td>
+              <td style="color: #757575; padding: 0;">Pepito</td>
+            </tr>
+            <tr style="text-align:left;">
+              <td style="color: #2F2F2F; padding: 0;">Apellido:</td>
+              <td style="color: #757575; padding: 0;">Perez</td>
+            </tr>
+            <tr style="text-align:left;">
+              <td style="color: #2F2F2F; padding: 0;">Tipo de documento:</td>
+              <td style="color: #757575; padding: 0;">Language</td>
+            </tr>
+            <tr style="text-align:left;">
+              <td style="color: #2F2F2F; padding: 0;">Número de documento:</td>
+              <td style="color: #757575; padding: 0;">Language</td>
+            </tr>
+            <tr style="text-align:left;">
+              <td style="color: #2F2F2F; padding: 0;">Celular:</td>
+              <td style="color: #757575; padding: 0;">Language</td>
+            </tr>
+          </mj-table>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF" padding="0px">
+      <mj-column width="560px" padding="0px">
+		    <mj-divider border-width="1px" border-style="solid" border-color="lightgrey" padding="0px"/>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FFFFFF">
+      <mj-column background-color="#CC171E" width="560px" padding-left="0px">
+        <mj-group>
+          <mj-column background-color="#CC171E" padding-top="0px" padding-left="0px" padding-bottom="0px">
+            <mj-image align="left" href="#" padding="0px" width="140px" src="https://imgur.com/4kVLojg.png" />
+          </mj-column>
+          <mj-column background-color="#CC171E">
+            <mj-image align="right" width="168px" padding="0" src="https://imgur.com/JEq5kgo.png" />
+          </mj-column>
+        </mj-group>
+      </mj-column>
+    </mj-section>
+    
+  </mj-body>
+</mjml>

@@ -1,0 +1,55 @@
+.box
+  h3 &iexcl;Felicidades!
+  p 
+    span.newline Has elegido  
+    strong( v-html='name' )
+    br
+    strong
+      span( v-if="coupon_type === 'before_after'" )
+        s.price-after {{ value[0] }}
+        br
+        span.price-before {{ value[1] }}
+
+      span( v-else ) {{ value }}
+
+      span( v-if="coupon_type === 'percentage'" style="padding-left: 6px;") de descuento
+
+  .store-logo(
+    :style="'background-image: url(\"' + store_img.split(' ').join('%20') + '\");'"
+    :title='store_name'
+  )
+
+  .picture
+    img( :src='img' )
+
+  p(
+    v-if='code'
+  )
+    span.newline El c&oacute;digo para canjearlo es:
+    strong( v-html='code' )
+
+  p(
+    v-if='enddate && timeout === false'
+  )
+    span.newline Esta promoci&oacute;n vence en:
+    span.counter
+      span.item( v-if="days" ) {{ ((days < 10)? '0' : '') + days }}
+        span.label D&iacute;as
+      span.item {{ ((hours < 10)? '0' : '') + hours }}
+        span.label Hrs
+      span.item {{ ((minutes < 10)? '0' : '') + minutes }}
+        span.label Mins
+      span.item {{ ((seconds < 10)? '0' : '') + seconds }}
+        span.label Segs
+  p(
+    v-else='enddate && timeout === true'
+  )
+    span.newline( style="color: red;" ) Esta promoci&oacute;n ya venci&oacute;
+
+  p 
+    span.newline Para m&aacute;s detalle, revisa los 
+      a( :href="'/categoria/' + category_slug + '-' + category_id + '/' + slug + '-' + id + '#terminos-y-condiciones'" target="_blank" ) t&eacute;rminos y condiciones
+
+  .buttons-center
+    router-link.button( to='/perfil/cupones-canjeados' v-if='is_archive' ) Ver mis cupones canjeados
+    a.button( href='/' v-else ) Disfruta m&aacute;s beneficios

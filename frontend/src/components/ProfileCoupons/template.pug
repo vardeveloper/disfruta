@@ -1,0 +1,28 @@
+.acount-coupons
+  .acount-coupons--main
+    template( v-if='data && data.length > 0' )
+      template( v-for="group in data" )
+        .coupons--date
+          | {{ formatDate(group.date) }} 
+        .coupons
+          template( v-for='item in group.items' )
+            Coupon(
+              :exlink='1'
+              :href="'/categoria/' + item.category_slug + '-' + item.category_id + '/' + item.slug + '-' + item.id + '/checkout/' + item.uuid"
+              :class='(item.category_slug == "experiencias")? "coupon-small-2": ""'
+              :name='item.name'
+              :coupon_type='item.coupon_type'
+              :coupon_value='item.coupon_value'
+              :excerpt='item.excerpt'
+              :highlight='item.highlight'
+              :id='item.id'
+              :slug='item.slug'
+              :store_name='item.store_name'
+              :store_img='item.store_img'
+              :img='(item.highlight)? item.img_large : item.img',
+              :cname="(item.category_slug)? 'page-' + item.category_slug : ''"
+              :category_slug='item.category_slug'
+              :category_id='item.category_id'
+            )
+    template( v-else )
+      p( v-if='isBusy === 0') No hay nada que mostrar

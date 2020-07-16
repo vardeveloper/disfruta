@@ -1,0 +1,47 @@
+.photos(
+  :class="{ 'photos-fullscreen': isFullscreen }"
+)
+  .photo-overlay
+  .photos-main
+    .photos-header
+      router-link.back(
+        :to="{ name: 'galleries' }"
+      ) Galer&iacute;a de fotos de eventos
+
+      .name Evento: "{{ data.event.name }}"
+    .photos-grid
+      template( v-if='data && data.photos.length > 0' )
+        template( v-for='item, index in data.photos' )
+          .photo(
+            :class="{ 'photo-active': selected == index }"
+            @click.prevent='handlePhoto(index)'
+          )
+            .photo-main
+              .photo-wrap
+                .close( @click.stop='handleClose' )
+                .next( 
+                  v-if='index < data.photos.length - 1'
+                  @click.stop='handleNext(index)'
+                )
+                .prev( 
+                  v-if='index > 0'
+                  @click.stop='handlePrev(index)'
+                )
+                .photo-frame
+                  .photo-item( 
+                    v-if='selected != index' 
+                    :style="'background-image: url(' + $store.state.handler.static_url + 'photos/' + data.event.slug + '-' + data.event.id + '/' + item.id + '_small.jpg)'"
+                  )
+                  .photo-item-big( 
+                    v-if='selected == index' 
+                    :style="'background-image: url(' + $store.state.handler.static_url + 'photos/' + data.event.slug + '-' + data.event.id + '/' + item.id + '.jpg)'"
+                  )
+                .photo-footer
+                  a.download( 
+                    @click.stop="handleDownload('/perfil/galerias-de-fotos/' + data.event.slug + '-' + data.event.id + '/' + item.id + '/download')"
+                    :href="'/perfil/galerias-de-fotos/' + data.event.slug + '-' + data.event.id + '/' + item.id + '/download'"
+                    target='_blank'
+                  ) Descargar
+
+      template( v-else )
+        p No hay photos que mostrar

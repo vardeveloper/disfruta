@@ -1,0 +1,43 @@
+.coupon( 
+  :class="[cname,{ 'coupon-big': highlight }]"
+)
+  slot
+
+  template( v-if='exlink' )
+    a.coupon-link(
+      v-if='!nolink'
+      :href="(href)? href : '/categoria/' + category_slug + '-' + category_id + '/' + slug + '-' + id"
+    )
+  template( v-else )
+    router-link.coupon-link(
+      v-if='!nolink'
+      :to="(href)? href : '/categoria/' + category_slug + '-' + category_id + '/' + slug + '-' + id"
+    )
+
+  img.coupon-picture(
+    :style="'opacity: ' + imgLoaded"
+    v-on:load='onImgLoad'
+    :src="img"
+  )
+
+  .coupon-content
+    .coupon-store(
+      v-if='store_img'
+    ) 
+      .store-logo(
+        :style="'background-image: url(\"' + store_img.split(' ').join('%20') + '\")'"
+        :title="store_name"
+      )
+
+    .coupon-main
+      p.title
+        span( v-if="coupon_type === 'before_after'" )
+          s.price-after {{ value[0] }}
+          br
+          span.price-before {{ value[1] }}
+
+        span( v-else ) {{ value }}
+
+        
+      p.descrip( v-html='name' )
+      p.descrip( v-html='excerpt' )

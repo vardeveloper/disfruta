@@ -1,0 +1,93 @@
+.acount-coupons {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding-left: 20px;
+}
+
+.acount-coupons--main {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 2px;
+}
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+
+  .modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+  }
+
+  .label {
+    color: #FFF;
+    font-size: 16px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+
+    &:before {
+      content: '';
+      background: transparent url(#{$static-path}/svg/plus.svg) no-repeat 0 0;
+      width: 40px;
+      height: 40px;
+      display: block;
+      margin-right: 5px;
+    }
+  }
+}
+
+.coupon:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.coupons {
+  width:100%;
+  //max-width: 1230px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 750px){
+  .acount-coupons {
+    padding-left: 0;
+  }
+}
+
+@media only screen and (max-width:550px){
+  .coupon {
+    width: 99%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 551px) {
+  .coupon {
+    width: 49%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+}
+
+@media only screen and (min-width: 1001px){
+  .coupon {
+    width: 32%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.5%;
+  }
+}

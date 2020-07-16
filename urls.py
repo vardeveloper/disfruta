@@ -1,0 +1,125 @@
+from tornado.web import url
+
+import controllers.main as main
+import controllers.static as static
+import controllers.api as api
+
+
+urls = (
+    url(
+        '/api/get-sectors',
+        api.GetSectors,
+        name='api_get_sectors'
+    ),
+    url(
+        r'/api/get-jobs/(\d+)',
+        api.GetJobs,
+        name='api_get_jobs'
+    ),
+    url(
+        r'/perfil/galerias-de-fotos/(.*)-(\d+)/(\d+)/download',
+        main.DownloadPhoto,
+        name='download_photo'
+    ),
+    url(
+        r'/perfil/galerias-de-fotos/(.*)-(\d+)',
+        main.Photos,
+        name='photos'
+    ),
+    url(
+        '/perfil/galerias-de-fotos',
+        main.ListGalleries,
+        name='galleries'
+    ),
+    url(
+        '/perfil/cupones-canjeados',
+        main.CheckoutHistory,
+        name='checkouts'
+    ),
+    url(
+        '/perfil/edit',
+        main.EditProfile,
+        name='edit_profile'
+    ),
+    url(
+        '/perfil',
+        main.Profile,
+        name='profile'
+    ),
+    url(
+        '/acerca-de',
+        static.StaticTemplate,
+        {
+            'tpl': 'site/about.html'
+        },
+        name='about'
+    ),
+    url(
+        '/terminos-y-condiciones',
+        static.StaticTemplate,
+        {
+            'tpl': 'site/index.html'
+        },
+        name='tyc'
+    ),
+    url(
+        '/politicas-de-privacidad',
+        static.StaticTemplate,
+        {
+            'tpl': 'site/index.html'
+        },
+        name='politics'
+    ),
+    url(
+        '/sugerencias',
+        main.Suggestion,
+        name='suggestions'
+    ),
+    url(
+        '/buscar',
+        main.Search,
+        name='search'
+    ),
+    url(
+        r'/evento-especial/(.*)-(\d+)/(.*)-(\d+)',
+        main.SpecialEventGifts,
+        name='special_event_gifts'
+    ),
+    url(
+        r'/categoria/(.*)-(\d+)/(.*)-(\d+)/checkout/'
+        r'([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-'
+        r'[89ab][0-9a-f]{3}-[0-9a-f]{12})',
+        main.CheckoutSteps,
+        name='checkout_steps'
+    ),
+    url(
+        r'/categoria/(.*)-(\d+)/(.*)-(\d+)/checkout',
+        main.Checkout,
+        name='gift_checkout'
+    ),
+    url(
+        r'/categoria/(.*)-(\d+)/(.*)-(\d+)',
+        main.Gift,
+        name='gift'
+    ),
+    url(
+        r'/categoria/(.*)-(\d+)',
+        main.GetCoupons,
+        name='get_coupons'
+    ),
+    url(
+        '/login',
+        main.Login,
+        name='login'
+    ),
+    url(
+        '/logout',
+        main.Logout,
+        name='logout'
+    ),
+    url(
+        '/',
+        main.Main,
+        name='home'
+    )
+)

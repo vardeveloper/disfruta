@@ -1,0 +1,109 @@
+.box {
+  color: #757575;
+  width: 100%;
+  max-width: 548px;
+  height: auto;
+  box-sizing: border-box;
+  padding: 43px 5%;
+  background-color: #FFF;
+  border-radius: 5px;
+  margin-bottom: 10%;
+  text-align: center;
+}
+
+h3 {
+  color: #EE3224;
+  font-size: 30px;
+  margin: 0 0 9px;
+}
+
+p {
+  font-size: 14px;
+}
+
+strong {
+  font-size: 16px;
+}
+
+.newline {
+  display: block;
+  margin: 0 0 7px;
+
+  a {
+    color: #666;
+  }
+}
+
+.price-after {
+  font-size: 16px;
+  line-height: 23px;
+}
+
+.store-logo {
+  text-align: center;
+  width: 80%;
+  max-width: 333px;
+  height: 70px;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0 auto 1em;
+}
+
+.buttons-center {
+  margin: 25px auto 0;
+}
+
+.counter {
+  display: block;
+  padding-bottom: 20px;
+
+  .item {
+    display: inline-block;
+    background: #F1F1F1;
+    font-size: 26px;
+    font-weight: bold;
+    color: #757575;
+    margin: 0 5px;
+    padding: 10px 10px;
+    position: relative;
+  }
+
+  .label {
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    display: block;
+    font-size: 10px;
+    font-weight: normal;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width:480px){
+  .box {
+    -webkit-box-shadow: 0px 3px 17px -4px #00000029;
+    -moz-box-shadow: 0px 3px 17px -4px #00000029;
+    box-shadow: 0px 3px 17px -4px #00000029;
+    //margin-top: 5%;
+    margin-bottom: 5%;
+  }
+}
+
+@media only screen and (min-width:600px){
+  .box {
+    max-width: 550px;
+    //min-height: 604px;
+    //margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+@media only screen and (min-width: 800px){
+  .box {
+    margin-right: 92px;
+  }
+}
+

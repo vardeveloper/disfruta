@@ -1,0 +1,66 @@
+.acount-coupons {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding-left: 20px;
+}
+
+.acount-coupons--main {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 2px;
+}
+
+.coupons--date {
+  height: 47px;
+  font-size: 14px;
+  box-sizing: border-box;
+  padding-top: 9px;
+}
+
+.coupons {
+  width:100%;
+  //max-width: 1230px;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 750px){
+  .acount-coupons {
+    padding-left: 0;
+  }
+}
+
+@media only screen and (max-width:550px){
+  .coupon {
+    width: 99%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+  .coupon-big {
+    width: 99%;
+  }
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 551px) {
+  .coupon {
+    width: 49%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.3%;
+  }
+  .coupon-big {
+    width: 99%;
+  }
+}
+
+@media only screen and (min-width: 1001px){
+  .coupon {
+    width: 32%;
+    max-height: 250px;
+    margin: 0.5% 0.5% 0.5%;
+  }
+
+  .coupon-big {
+    width: 66%;
+  }
+}

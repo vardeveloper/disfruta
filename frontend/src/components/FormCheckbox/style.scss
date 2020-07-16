@@ -1,0 +1,46 @@
+.field-content {
+  display: inline-block;
+}
+
+.field-main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: opacity .2s ease-in-out;
+}
+
+.field-input {
+  border: 1px solid #ACACAC;
+  width: 18px;
+  height: 18px;
+  background-color: #FFF;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.field-label {
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+  display: block;
+  padding-left: 10px;
+}
+
+.field-input-checked {
+  background-image: url("#{$static-path}/image/check-regular.png");;
+}
+
+.details-experiencias .field-input-checked {
+  background-image: url("#{$static-path}/image/check-premium.png");;
+}
+
+input {
+  opacity: 0;
+}
+
+label.error {
+  color: red;
+  display: inline-block;
+  font-size: 13px;
+  padding: 7px 0;
+}

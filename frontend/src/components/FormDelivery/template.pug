@@ -1,0 +1,132 @@
+Form(
+  ref='form'
+  method="POST"
+  @submit='handleSubmit'
+  :isFormBusy='isFormBusy'
+  :submitSuccess='formSubmitSuccess'
+).form-delivery
+  template( v-slot:header )
+    template( v-if='formSubmitSuccess')
+      p.form-message-success Gracias, tus datos fueron actualizados correctamente.
+      .buttons-center
+        a.button( 
+          @click.prevent='handleCancelBtn'
+        ) Aceptar
+    template( v-else )
+      h3 Datos de entrega
+
+  template( v-slot:main )
+    p.form-message-error(
+      v-if='errorCustom'
+      v-html='errorCustom'
+    )
+
+    input( type='hidden' name='_xsrf' :value='$store.state.handler.xsrf' )
+
+    FormInput(
+      label="Dirección de entrega"
+      id='address'
+      name='address'
+      ref='address'
+      :errors='errorsAddress'
+      v-model='address'
+      :attrs="{ 'maxlength': 200 }"
+    )
+
+    FormInput(
+      label="Referencia (opcional)"
+      id='reference'
+      name='address_reference'
+      ref='reference'
+      :errors='errorsReference'
+      v-model='reference'
+      :attrs="{ 'maxlength': 200 }"
+    )
+
+    .columns(
+      :style='((errorsPhone && errorsPhone.length > 0) || (errorsDistrict && errorsDistrict.length > 0))? "padding-bottom: 15px;": ""'
+    )
+      FormInput(
+        label="Distrito"
+        id='district'
+        name='district'
+        ref='district'
+        :errors='errorsDistrict'
+        v-model='district'
+      )
+        template( v-slot:input )
+          select( name='district' )
+            option( readonly )
+            template( v-for='option in districtOptions' )
+              option( 
+                v-html='option[1]'
+                :value='option[0]'
+                :selected='option[0] === district'
+              )
+
+      FormInput(
+        label="Teléfono"
+        ref='phone'
+        :errors='errorsPhone'
+        v-model='phone'
+        :attrs="{ 'maxlength': 11 }"
+      )
+        template( v-slot:input )
+          input(
+            type='tel'
+            id='phone'
+            name='phone'
+            :value='phone'
+            maxlength='11'
+            v-on:keydown='limitKeysPhone'
+          )
+
+    .columns(
+      v-if='deliveryTimeOptions'
+    )
+      FormInput(
+        label="Día de la entrega"
+        id='deliveryDate'
+        name='delivery_date'
+        ref='deliveryDate'
+        :errors='errorsDeliveryDate'
+        v-model='deliveryDate'
+      )
+        template( v-slot:input )
+          datepicker( 
+            :language='deliveryDatePicker_es'
+            :disabled-dates='disabledDates'
+            format='dd/MM/yyyy'
+            maximumView='day',
+            name='delivery_date'
+            v-model='deliveryDate'
+            :value='deliveryDate'
+          )
+
+      FormInput(
+        label="Rango de hora de entrega"
+        id='deliveryTime'
+        name='delivery_time'
+        ref='deliveryTime'
+        :errors='errorsDeliveryTime'
+        v-model='deliveryTime'
+      )
+        template( v-slot:input )
+          select( name='delivery_time')
+            option( readonly )
+            template( v-for='option in deliveryTimeOptions' )
+              option( 
+                v-html='option[1]' 
+                :value='option[0]' 
+                :selected='option[0] === deliveryTime'
+              )
+
+    p
+      small Si el d&iacute;a de entrega elegido es feriado, se enviar&aacute; el regalo al siguiente d&iacute;a &uacute;til con los mismos datos ingresados.
+
+  template( v-slot:footer )
+    a.button-simple(
+      @click.prevent='handleCancelBtn'
+    ) Regresar
+    button.button( type='submit' ) {{ submitLabel }}
+

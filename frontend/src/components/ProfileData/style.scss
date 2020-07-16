@@ -1,0 +1,71 @@
+.acount-inf{
+  padding-top: 28px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 945px;
+  .info-card{
+    margin-left: 0;
+    box-sizing: border-box;
+    .card-data{
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 56px;
+      margin-left: 6%;
+      div{
+        width:100%;
+        max-width: 380px;
+        height: 79px;
+        span{
+          font-size: 12px;
+        }
+        p{
+          margin: 9px 0 0 0;
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+        p.mail{
+          text-transform: lowercase;
+        }
+      }
+    }
+  }
+}
+
+.buttons {
+  margin-top: 43px;
+}
+
+.button-loading {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.loading {
+  opacity: 0.5;
+  position: relative;
+  cursor: wait;
+
+  .info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+  }
+}
+
+@media only screen and (min-width: 750px){
+  .acount-inf{
+    padding-top: 47px;
+    .info-card{
+      margin-left: 16%;
+      .card-data{
+        margin-left: 0;
+        div{
+          width: 48%;
+        }
+      }
+    }
+  }
+}

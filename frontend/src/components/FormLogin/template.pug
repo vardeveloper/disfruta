@@ -1,0 +1,63 @@
+Form(
+  class="form-session"
+  ref="form"
+  method="POST"
+  @submit="handleSubmit"
+)
+  template( v-slot:header )
+    template( v-if='formTitle' )
+      h3 {{ formTitle }}
+
+    template( v-else )
+      h3 ¡Bienvenido!
+      p Disfruta de todos los beneficios que tenemos para ti.
+
+  template( v-slot:main )
+    p.form-message-error(
+      v-if='errorCustom'
+      v-html='errorCustom'
+    )
+
+    input( type="hidden" name="_xsrf" :value="$store.state.handler.xsrf" )
+
+    formInput(
+      label="Tipo de documento"
+      id="doc_type"
+      name="doc_type"
+      v-model="doc_type"
+      :errors="errorsDocType"
+    )
+      template( v-slot:input )
+        select( name='doc_type' )
+          option( readonly )
+          template( v-for='option in docTypeOptions' )
+            option( :value='option[0]' ) {{ option[1] }}
+
+    formInput(
+      label="Número de documento"
+      id="doc_number"
+      name="doc_number"
+      :errors="errorsDocNumber"
+      :attrs='{ autocomplete: "off" }'
+      v-model="doc_number"
+    )
+
+    formInput(
+      type="password"
+      label="Clave web"
+      id="clave"
+      name="clave"
+      :errors="errorsClave"
+      v-model="clave"
+      v-bind:open='openInputClave'
+      :attrs='{ maxlength: 4, readonly: "readonly", tabindex: -1 }'
+      @change='validClave'
+    )
+
+    FormPad( @clickKey='handleClickKey' )
+
+    a( class="keyweb-link" href="https://claveweb.profuturo.com.pe/" target="_blank" ) Generar Clave Web
+
+  template( v-slot:footer )
+    a( class="button-simple" @click.prevent='handleBack' ) Regresar
+    button( class="button" type="submit" ) {{ submitLabel || 'Ingresar' }}

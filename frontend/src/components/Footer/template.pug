@@ -1,0 +1,22 @@
+footer#footer
+  #footer_social
+    a.facebook(href="http://www.facebook.com/profuturo.afp" target="_blank")
+
+    a.twitter(href="http://twitter.com/Profuturo_AFP" target="_blank")
+
+    a.youtube(href="http://www.youtube.com/profuturoperu" target="_blank")
+
+    a.instagram(href="https://www.instagram.com/profuturo.afp/" target="_blank")
+
+  #footer_main
+    #footer_links
+      a( href="https://www.profuturo.com.pe/" target="_blank" ) Acerca de Profuturo
+
+      router-link( :to="{ name: 'tyc' }" ) T&eacute;rminos y Condiciones
+
+      router-link( :to="{ name: 'politics' }" ) Pol&iacute;tica de Privacidad
+
+      a( href="/sugerencias" ) Sugerencias
+
+    #footer_copy
+      p &copy; Profuturo AFP 2019. Todos los derechos reservados.
