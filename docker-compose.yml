@@ -1,0 +1,64 @@
+version: '2.2'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+    container_name: elasticsearch
+    environment:
+      - "cluster.name=es-docker-cluster"     # Sets cluster name
+      - "node.name=es01"                     # Sets node name
+      - "network.host=0.0.0.0"               # Sets binding ip to all
+      - "discovery.type=single-node" 
+      - "xpack.security.enabled=false"       # Disables xpack security
+      - "xpack.monitoring.enabled=false"     # Disables xpack monitoring
+      - "xpack.watcher.enabled=false"        # Disables xpack watcher
+      - "xpack.ml.enabled=false"             # Disables xpack machine learning
+      - "bootstrap.memory_lock=true"         # Disables memory swap
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"   # Sets allocated memory
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elastic
+  
+  mysql:
+    image: mysql:8.0.18
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3366:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: disfruta
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - elastic
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    command: redis-server
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_REPLICATION_MODE: master
+    volumes:
+      - $PWD/data/redis:/var/lib/redis
+      - $PWD/data/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - elastic
+
+volumes:
+  data:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
