@@ -15,6 +15,12 @@
           template( v-else )
             span {{ formatDate(data.taken_place_on) }}
 
+        template( v-if='data.place' )
+          dt
+            span.dt-icon-place Lugar:
+          dd
+            span( v-html='data.place' )
+
         dt
           span.dt-icon-time Hora:
         dd
@@ -76,7 +82,7 @@
 
       .dd--description( v-html='data.disclaimer' )
 
-
+//-
   .details-d-2
     .dtls(
       v-if='data.place && data.taken_place_on'

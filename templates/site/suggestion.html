@@ -1,27 +1,82 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1.0"><script async src="https://www.googletagmanager.com/gtag/js?id=G-8WSBP7QX6G"></script><script>window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-8WSBP7QX6G');
-</script>{% if ':8080' in handler.settings.get('static_url_prefix') %}<!-- <link rel="preload" href="{{ handler.static_url('app.css') }}" as="style">--><!-- <link rel="preload" href="{{ handler.static_url('chunk-vendors.js') }}" as="script">--><link rel="preload" href="{{ handler.static_url('app.js') }}" as="script"><link rel="icon" href="{{ handler.static_url('favicon.ico') }}"><!-- <link rel="stylesheet" href="{{ handler.static_url('app.css') }}">-->{% else %}<link rel="preload" href="{{ handler.static_url('css/app.css') }}" as="style"><link rel="preload" href="{{ handler.static_url('js/chunk-vendors.js') }}" as="script"><link rel="preload" href="{{ handler.static_url('js/app.js') }}" as="script"><link rel="icon" href="{{ handler.static_url('favicon.ico') }}"><link rel="stylesheet" href="{{ handler.static_url('css/app.css') }}">{% endif %}<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css"><title> Disfruta Profuturo</title><script>window._gmap_key = '{{ handler.settings.get("gmap_key") }}';
-window.__template_data = (function() {
- var self = {};
- self.handler = {};
- self.handler.static_url = '{{ handler.static_url('') }}';
- self.handler.xsrf = '{{ handler.xsrf_token }}';
- {%- if handler.current_user != None %}
- self.currentUser = {};
- self.currentUser.jwt = '{{ handler.current_user.access_token }}';
- self.currentUser.premium = {{ handler.current_user.premium|default(False)|tojson }};
- self.currentUser.id = '{{ handler.current_user.id }}';
- {%- else  %}
- self.currentUser = null;
- {%- endif  %}
- {%- if handler.get_menu() %}self.menu = {{ handler.get_menu()|default([])|tojson }};{% endif %}
- {%- if banner %}self.banner = { "img": "{{ banner.img }}", "description": "{{ banner.description }}", "link": "{{ banner.link }}" };{% endif %}
- {%- if banner_category %}self.banner_category = { "img": "{{ banner_category.img }}", "description": "{{ banner_category.description }}", "link": "{{ banner_category.link }}" };{% endif %}
- {%- if logos %}
- self.logos = [{%- for logo in logos %}{"img": "{{logo.img }}"}{% if not loop.last %},{% endif %}{% endfor %}];
- {%- endif %}self.errorsPhone = {{ form.phone.errors|tojson }};
-self.errorsEmail = {{ form.email.errors|tojson }};
-self.errorsMessage = {{ form.message.errors|tojson }}; return self;
-}());</script></head><body><noscript><strong>Lo sentimos pero es necesario que tenga activado Javascript para continuar.</strong></noscript><script id="FormSuggestion" type="text/x-template"><div class="main-inner">{%- if handler.request.method == 'POST' and not form.errors  and not form.errors.custom %}<h3 class="title">Tu sugerencia ha sido enviada</h3><p class="form-message-success">Gracias por tu tiempo.</p>{%- else %}<h3 class="title">Tu opini&oacute;n es importante<br>para nosotros</h3><p class="description">Env&iacute;anos tus sugerencias para seguir brind&aacute;ndote el mejor servicio.</p><Form ref="form" @submit.prevent="handleSubmit" :class="['form-inline', {'form-loaded': isLoaded}]" :action="action" :method="method"><div class="form-overlay"></div>{% if handler.request.method == 'POST' and form.errors  and form.errors.custom %}<p class="form-message-error">{{ form.errors.custom }}</p>{%- endif %}<div class="g-recaptcha" id="recaptcha" data-sitekey="{{ handler.settings.get('recaptcha_key') }}" data-size="invisible" data-callback="suggestionFormHandleSubmit"></div>{{ handler.xsrf_form_html() }}<FormInput label="{{ form.email.label.text }}" id="{{ form.email.id }}" name="{{ form.email.name }}" value="{{ form.email.value }}" :errors="errorsEmail" v-model="email"></FormInput><FormInput label="{{ form.phone.label.text }}" id="{{ form.phone.id }}" name="{{ form.phone.name }}" value="{{ form.phone.value }}" :errors="errorsPhone" v-model="phone" :attrs="{ 'maxlength': 9 }"></FormInput><FormTextArea label="{{ form.message.label.text }}" id="{{ form.message.id }}" name="{{ form.message.name }}" value="{{ form.message.value }}" :errors="errorsMessage" v-model="message"></FormTextArea><div class="buttons buttons-center"><button class="button" type="submit">Enviar</button></div></Form><slot></slot>{% endif %}</div></script><div id="app"></div>{% if ':8080' in handler.settings.get('static_url_prefix') %}<script src="{{ handler.static_url('app.js') }}"></script>{% else %}<script src="{{ handler.static_url('js/chunk-vendors.js') }}"></script><script src="{{ handler.static_url('js/app.js') }}"></script>{% endif %}</body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WSBP7QX6G"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8WSBP7QX6G');
+      
+    </script>{% if ':8080' in handler.settings.get('static_url_prefix') %}
+    <!-- <link rel="preload" href="{{ handler.static_url('app.css') }}" as="style">-->
+    <!-- <link rel="preload" href="{{ handler.static_url('chunk-vendors.js') }}" as="script">-->
+    <link rel="preload" href="{{ handler.static_url('app.js') }}" as="script">
+    <link rel="icon" href="{{ handler.static_url('favicon.ico') }}">
+    <!-- <link rel="stylesheet" href="{{ handler.static_url('app.css') }}">-->{% else %}
+    <link rel="preload" href="{{ handler.static_url('css/app.css') }}" as="style">
+    <link rel="preload" href="{{ handler.static_url('js/chunk-vendors.js') }}" as="script">
+    <link rel="preload" href="{{ handler.static_url('js/app.js') }}" as="script">
+    <link rel="icon" href="{{ handler.static_url('favicon.ico') }}">
+    <link rel="stylesheet" href="{{ handler.static_url('css/app.css') }}">{% endif %}
+    <link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+    <title> Disfruta Profuturo
+    </title>
+    <script>
+      window._gmap_key = '{{ handler.settings.get("gmap_key") }}';
+      window.__template_data = (function() {
+       var self = {};
+       self.handler = {};
+       self.handler.static_url = '{{ handler.static_url('') }}';
+       self.handler.xsrf = '{{ handler.xsrf_token }}';
+       {%- if handler.current_user != None %}
+       self.currentUser = {};
+       self.currentUser.jwt = '{{ handler.current_user.access_token }}';
+       self.currentUser.premium = {{ handler.current_user.premium|default(False)|tojson }};
+       self.currentUser.id = '{{ handler.current_user.id }}';
+       {%- else  %}
+       self.currentUser = null;
+       {%- endif  %}
+       {%- if handler.get_menu() %}self.menu = {{ handler.get_menu()|default([])|tojson }};{% endif %}
+       {%- if banner %}self.banner = { "img": "{{ banner.img }}", "description": "{{ banner.description }}", "link": "{{ banner.link }}" };{% endif %}
+       {%- if banner_category %}self.banner_category = { "img": "{{ banner_category.img }}", "description": "{{ banner_category.description }}", "link": "{{ banner_category.link }}" };{% endif %}
+       {%- if logos %}
+       self.logos = [{%- for logo in logos %}{"img": "{{logo.img }}"}{% if not loop.last %},{% endif %}{% endfor %}];
+       {%- endif %}
+      self.errorsPhone = {{ form.phone.errors|tojson }};
+      self.errorsEmail = {{ form.email.errors|tojson }};
+      self.errorsMessage = {{ form.message.errors|tojson }}; return self;
+      }());
+    </script>
+  </head>
+  <body>
+    <noscript><strong>Lo sentimos pero es necesario que tenga activado Javascript para continuar.</strong></noscript>
+    <script id="FormSuggestion" type="text/x-template">
+      <div class="main-inner">{%- if handler.request.method == 'POST' and not form.errors  and not form.errors.custom %}
+        <h3 class="title">Tu sugerencia ha sido enviada</h3>
+        <p class="form-message-success">Gracias por tu tiempo.</p>{%- else %}
+        <h3 class="title">Tu opini&oacute;n es importante<br>para nosotros</h3>
+        <p class="description">Env&iacute;anos tus sugerencias para seguir brind&aacute;ndote el mejor servicio.</p>
+        <Form ref="form" @submit.prevent="handleSubmit" :class="['form-inline', {'form-loaded': isLoaded}]" :action="action" :method="method">
+          <div class="form-overlay"></div>{% if handler.request.method == 'POST' and form.errors  and form.errors.custom %}
+          <p class="form-message-error">{{ form.errors.custom }}</p>{%- endif %}
+          <div class="g-recaptcha" id="recaptcha" data-sitekey="{{ handler.settings.get('recaptcha_key') }}" data-size="invisible" data-callback="suggestionFormHandleSubmit"></div>{{ handler.xsrf_form_html() }}
+          <FormInput label="{{ form.email.label.text }}" id="{{ form.email.id }}" name="{{ form.email.name }}" value="{{ form.email.value }}" :errors="errorsEmail" v-model="email"></FormInput>
+          <FormInput label="{{ form.phone.label.text }}" id="{{ form.phone.id }}" name="{{ form.phone.name }}" value="{{ form.phone.value }}" :errors="errorsPhone" v-model="phone" :attrs="{ 'maxlength': 9 }"></FormInput>
+          <FormTextArea label="{{ form.message.label.text }}" id="{{ form.message.id }}" name="{{ form.message.name }}" value="{{ form.message.value }}" :errors="errorsMessage" v-model="message"></FormTextArea>
+          <div class="buttons buttons-center">
+            <button class="button" type="submit">Enviar</button>
+          </div>
+        </Form>
+        <slot></slot>{% endif %}
+      </div>
+    </script>
+    <div id="app"></div>{% if ':8080' in handler.settings.get('static_url_prefix') %}
+    <script src="{{ handler.static_url('app.js') }}"></script>{% else %}
+    <script src="{{ handler.static_url('js/chunk-vendors.js') }}"></script>
+    <script src="{{ handler.static_url('js/app.js') }}"></script>{% endif %}
+  </body>
+</html>

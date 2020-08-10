@@ -15,6 +15,10 @@ import urllib
 from datetime import datetime, timedelta
 from uuid import uuid4
 
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 
 class Main(RequestHandler):
 
@@ -64,10 +68,15 @@ class Main(RequestHandler):
 class GetCoupons(RequestHandler):
 
     def get(self, category_slug, category_id):
+
+        logger.debug('Regalos')
+
         try:
             category = self.get_category(category_slug, category_id)
         except NoResultFound:
-            raise HTTPError(404)
+            #raise HTTPError(404)
+            self.redirect(self.reverse_url('home'))
+            return
 
         res = {
             'category': {
@@ -277,10 +286,15 @@ class SpecialEventGifts(RequestHandler):
 class Gift(RequestHandler):
 
     def get(self, category_slug, category_id, gift_slug, gift_id):
+        
+        logger.debug('Detalle regalo')
+        
         try:
             category = self.get_category(category_slug, category_id)
         except NoResultFound:
-            raise HTTPError(404)
+             #raise HTTPError(404)
+            self.redirect(self.reverse_url('home'))
+            return
 
         res = {
             'category': {
@@ -560,12 +574,12 @@ class Login(RequestHandler):
                     if not user:
                         user = models.User()
                         user.ppsuc = _access_token.get('cuspp')
-                        user.premium = (
-                            _access_token.get('esExperiencias',
-                                              'false') == 'true'
-                        )
 
                     user.last_login_at = datetime.now()
+                    user.premium = (
+                        _access_token.get('esExperiencias',
+                                            'false') == 'true'
+                    )
                     self.db.add(user)
                     self.db.commit()
 
@@ -921,6 +935,9 @@ class CheckoutSteps(RequestHandler):
     @coroutine
     def get(self, category_slug, category_id, gift_slug, gift_id,
             checkout_uuid, form=None, name=None):
+
+        logger.debug('Lo quiero')
+
         try:
             category = self.get_category(category_slug, category_id)
         except NoResultFound:
