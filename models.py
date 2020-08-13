@@ -58,6 +58,10 @@ class BaseGift(Entity):
         'mysql_charset': 'utf8'
     }
 
+    GIFT = 'gift'
+    EVENT = 'event'
+    COUPON = 'coupon'
+
     id = Column(Integer, primary_key=True)
     gift_type = Column(Unicode(100))
     store_name = Column(Unicode(100), nullable=False)  # nombreMarca
@@ -85,6 +89,7 @@ class BaseGift(Entity):
 
     stock = relationship('Stock', backref=backref('gift'),
                          passive_deletes=True)
+
     checkouts = relationship('Checkout', backref=backref('gift'),
                              passive_deletes=True)
 
@@ -369,6 +374,7 @@ class Checkout(Entity):
     id_user = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'),
                      nullable=False)
     id_stock = Column(Integer, ForeignKey('stock.id', ondelete='CASCADE'))
+    
     stock = relationship('Stock', back_populates='checkout')
 
 

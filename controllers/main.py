@@ -936,7 +936,7 @@ class CheckoutSteps(RequestHandler):
     def get(self, category_slug, category_id, gift_slug, gift_id,
             checkout_uuid, form=None, name=None):
 
-        logger.debug('Lo quiero')
+        logger.debug('LO QUIERO')
 
         try:
             category = self.get_category(category_slug, category_id)
@@ -967,10 +967,12 @@ class CheckoutSteps(RequestHandler):
         stock = None
 
         if checkout.step == models.Checkout.VERIFICATION:
+            logger.debug('GET ' + models.Checkout.VERIFICATION)
             if form is None:
                 form = forms.Login()
 
         if checkout.step == models.Checkout.PROFILE:
+            logger.debug('GET ' + models.Checkout.PROFILE)
             if form is None:
                 _fields = []
                 t = yield self.check_mark('E')
@@ -1026,25 +1028,39 @@ class CheckoutSteps(RequestHandler):
 
                 if len(_fields) == 0:
                     if isinstance(gift, models.Coupon):
+                        logger.debug('CUPON')
                         checkout.step = models.Checkout.DONE
                         _step = checkout.step
+                    elif isinstance(gift, models.Event):
+                        logger.debug('EVENT')
+                        checkout.step = models.Checkout.DONE
+                        _step = checkout.step
+
+                        stock = models.Stock()
+                        stock.uuid = str(uuid4())
+                        stock.generate_code(self.settings.get('code_length'))
+                        gift.stock.append(stock)
                     else:
-                        try:
-                            provider = self.db.query(
-                                models.Provider
-                            ).filter(
-                                models.Provider.id == gift.id_provider
-                            ).one()
-                        except NoResultFound:
-                            raise HTTPError(500)
-                        else:
-                            if provider.delivery_type == models.Provider.\
-                                    TYPE_DIGITAL:
-                                checkout.step = models.Checkout.DONE
-                                _step = checkout.step
+                        '''
+                            try:
+                                provider = self.db.query(
+                                    models.Provider
+                                ).filter(
+                                    models.Provider.id == gift.id_provider
+                                ).one()
+                            except NoResultFound:
+                                raise HTTPError(500)
                             else:
-                                checkout.step = models.Checkout.DELIVERY
-                                _step = checkout.step
+                                if provider.delivery_type == models.Provider.\
+                                        TYPE_DIGITAL:
+                                    checkout.step = models.Checkout.DONE
+                                    _step = checkout.step
+                                else:
+                                    checkout.step = models.Checkout.DELIVERY
+                                    _step = checkout.step
+                        '''
+
+                    self.db.add(gift)
                     self.db.add(checkout)
 
                     try:
@@ -1059,6 +1075,7 @@ class CheckoutSteps(RequestHandler):
                     form = forms.CheckoutProfileUpdate()(*_fields)
 
         if checkout.step == models.Checkout.DELIVERY:
+            logger.debug('GET ' + models.Checkout.DELIVERY)
             try:
                 provider = self.db.query(
                     models.Provider
@@ -1086,7 +1103,14 @@ class CheckoutSteps(RequestHandler):
                 )
 
         if checkout.step == models.Checkout.DONE:
-            if gift.total_stock != -1:
+            logger.debug('GET ' + models.Checkout.DONE)
+            
+            if gift.total_stock == -1:
+                stock = models.Stock()
+                stock.uuid = str(uuid4())
+                stock.generate_code(self.settings.get('code_length'))
+                gift.stock.append(stock)
+            else:
                 if checkout.id_stock:
                     stock = checkout.stock
                 elif gift.used_stock < gift.total_stock:
@@ -1106,12 +1130,6 @@ class CheckoutSteps(RequestHandler):
                     ).one()
                 except NoResultFound:
                     raise HTTPError(500)
-
-            else:
-                stock = models.Stock()
-                stock.uuid = str(uuid4())
-                stock.generate_code(self.settings.get('code_length'))
-                gift.stock.append(stock)
 
             if stock:
                 stock.status = 'used'
@@ -1227,6 +1245,7 @@ class CheckoutSteps(RequestHandler):
             raise HTTPError(404)
 
         if checkout.step == models.Checkout.VERIFICATION:
+            logger.debug('POST ' + models.Checkout.VERIFICATION)
             form = forms.Login(forms.MultiDict(self))
 
             if form.validate():
@@ -1276,6 +1295,7 @@ class CheckoutSteps(RequestHandler):
                         form = None
 
         elif checkout.step == models.Checkout.PROFILE:
+            logger.debug('POST ' + models.Checkout.PROFILE)
             _fields = []
             t = yield self.check_mark('E')
             if t:
@@ -1442,6 +1462,7 @@ class CheckoutSteps(RequestHandler):
                         form = None
 
         elif checkout.step == models.Checkout.DELIVERY:
+            logger.debug('POST ' + models.Checkout.DELIVERY)
             try:
                 provider = self.db.query(
                     models.Provider

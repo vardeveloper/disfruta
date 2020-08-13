@@ -5,18 +5,19 @@
     strong( v-html='name' )
 
   .store-logo(
+    v-if='store_img'
     :style="'background-image: url(\"' + store_img.split(' ').join('%20') + '\");'"
     :title='store_name'
   )
 
   .picture
-    img( :src='img' )
-
-  p(
-    v-if='code'
-  )
-    span.newline El c&oacute;digo para canjearlo es:
-    strong( v-html='code' )
+    img( :src='img', :width='300' )
+  //-
+    p(
+      v-if='code'
+    )
+      span.newline El c&oacute;digo para canjearlo es:
+      strong( v-html='code' )
 
   .buttons-center
     router-link.button( to='/perfil/cupones-canjeados' v-if='is_archive' ) Ver mis cupones canjeados
