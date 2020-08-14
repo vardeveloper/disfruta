@@ -1,3 +1,5 @@
+import { formatDate, formatDateTime } from '@/utils/formatStringDate';
+
 export default {
   name: 'CheckoutFinishEvent',
   data: function() {
@@ -10,8 +12,16 @@ export default {
       slug: null,
       img: null,
       code: null,
-      datetimeLimit: null
+      datetimeLimit: null,
+      events_place: null,
+      events_income: null,
+      events_start: null,
+      events_day: null,
     };
+  },
+  methods: {
+    formatDate: function(s) { return formatDate(s); },
+    formatDateTime: function(s) { return formatDateTime(s); }
   },
   created: function() {
     const data = (window.__template_data || {}).data || {};
@@ -24,5 +34,10 @@ export default {
     this.img = data.img;
     this.code = data.code;
     this.datetimeLimit = data.datetimeLimit;
+    this.events_place = data.events_place;
+    this.events_income = this.formatDateTime(data.events_income);
+    this.events_start = this.formatDateTime(data.events_start);
+    this.events_day = this.formatDate(data.events_income);
   }
 }
+

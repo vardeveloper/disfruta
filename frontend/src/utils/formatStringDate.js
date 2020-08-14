@@ -72,14 +72,15 @@ export function formatDateTime(datetime_string) {
   if (result.toString() === 'Invalid Date') { return datetime_string; }
 
   result.hours = result.getHours();
-  result.min = result.getMinutes();
+  result.min = result.getMinutes().toString().padStart(2, '0');
 
-  if (result.hours > 11) {
+  if (result.hours >= 12) {
     ampm = 'PM';
   }
 
-  return ((result.hours < 10)? '0' : '') +
-    (result.hours - 12) + ':' +
-    ((result.min < 10)? '0' : '') +
-    + result.min + ' ' + ampm;
+  if (result.hours < 13) {
+    return result.hours + ':' + result.min + ' ' + ampm;
+  }
+
+  return (result.hours - 12) + ':' + result.min + ' ' + ampm;
 }

@@ -10,6 +10,18 @@
     :title='store_name'
   )
 
+  p D&iacute;a: 
+    span( v-if='events_day' v-html='events_day' )
+
+  p Lugar: 
+    span( v-if='events_place' v-html='events_place' )
+
+  p Hora Ingreso :
+    span {{ events_income }}
+
+  p Hora Inicio:
+    span {{ events_start }}
+
   .picture
     img( :src='img', :width='300' )
   //-
