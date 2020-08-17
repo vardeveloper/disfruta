@@ -61,7 +61,10 @@
       self.data.code = {%- if checkout and checkout.stock and checkout.stock.code %}{{ checkout.stock.code|default('')|tojson }}{% else %}null{% endif -%};
       self.data.dateTimeLimit = '{{ checkout.last_exchange_date|default(0) }}';
       self.data.category_slug = '{{ gift.category.slug|default('') }}';
-      self.data.category_id = '{{ gift.category.id|default('') }}'; return self;
+      self.data.category_id = '{{ gift.category.id|default('') }}';
+      self.data.events_place = '{{ gift.place|default('') }}';
+      self.data.events_income = '{{ gift.taken_place_on|default('') }}';
+      self.data.events_start = '{{ gift.start_on|default('') }}'; return self;
       }());
     </script>
   </head>

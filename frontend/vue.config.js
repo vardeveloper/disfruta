@@ -1,6 +1,6 @@
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const DEV_SERVER = process.env.DEV_SERVER || 'http://0.0.0.0:8080';
+const DEV_SERVER = process.env.DEV_SERVER || 'http://127.0.0.1:8080';
 const STATIC_URL_PREFIX = process.env.PROD_STATIC_URL || '/static/';
 
 console.log('process.env.DEV_SERVER',  process.env.DEV_SERVER);
