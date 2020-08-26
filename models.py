@@ -128,6 +128,12 @@ class Gift(BaseGift):
     last_exchange_date = Column(Date, nullable=False)
     disclaimer = Column(UnicodeText)
 
+    TYPE_PICKUP = 'pickup'
+    TYPE_DIGITAL = 'digital'
+    TYPE_DELIVERY = 'delivery'
+    TYPE_DELIVERY_FULL = 'delivery_full'
+    delivery_type = Column(Unicode(255), nullable=False)
+
     id_special_event = Column(Integer,
                               ForeignKey('special_events.id',
                                          ondelete='CASCADE')
@@ -513,6 +519,8 @@ class SpecialEvent(Entity):
     status = Column(Enum('enabled', 'disabled'), nullable=False,
                     server_default='enabled')
     last_exchange_date = Column(Date, nullable=False)
+    start_date = Column(Date, nullable=False)
+    end_date = Column(Date, nullable=False)
 
     id_category = Column(Integer,
                          ForeignKey('categories.id', ondelete='CASCADE'),

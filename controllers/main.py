@@ -148,7 +148,8 @@ class GetCoupons(RequestHandler):
                 models.InvitedUserEvent.status == 'pending',
                 models.SpecialEvent.id_category == category.id,
                 models.SpecialEvent.status == 'enabled',
-                models.SpecialEvent.last_exchange_date >= datetime.now()
+                models.SpecialEvent.start_date <= datetime.now(),
+                models.SpecialEvent.end_date >= datetime.now()
             ).all()
 
             for se in special_events:
@@ -341,7 +342,7 @@ class Gift(RequestHandler):
                 'pre': gift.pre,
                 'post': gift.post,
                 'disclaimer': gift.disclaimer,
-                'delivery_type': gift.provider.delivery_type
+                'delivery_type': gift.delivery_type
             })
             try:
                 special_event = self.db.query(
