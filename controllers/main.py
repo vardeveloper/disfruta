@@ -201,6 +201,9 @@ class SpecialEventGifts(RequestHandler):
     @authenticated
     def get(self, category_slug, category_id, special_event_slug,
             special_event_id):
+
+        logger.debug('GET REGALOS DE CAMPAnA')
+
         try:
             category = self.get_category(category_slug, category_id)
         except NoResultFound:
@@ -216,7 +219,7 @@ class SpecialEventGifts(RequestHandler):
                 models.InvitedUserEvent.status == 'pending',
                 models.SpecialEvent.id_category == category.id,
                 models.SpecialEvent.status == 'enabled',
-                models.SpecialEvent.last_exchange_date >= datetime.now(),
+                models.SpecialEvent.end_date >= datetime.now(),
                 models.SpecialEvent.slug == special_event_slug,
                 models.SpecialEvent.id == special_event_id
             ).one()
@@ -578,8 +581,7 @@ class Login(RequestHandler):
 
                     user.last_login_at = datetime.now()
                     user.premium = (
-                        _access_token.get('esExperiencias',
-                                            'false') == 'true'
+                        _access_token.get('esExperiencias', 'false') == 'true'
                     )
                     self.db.add(user)
                     self.db.commit()
@@ -1041,6 +1043,10 @@ class CheckoutSteps(RequestHandler):
                         stock.uuid = str(uuid4())
                         stock.generate_code(self.settings.get('code_length'))
                         gift.stock.append(stock)
+                    elif isinstance(gift, models.Gift):
+                        logger.debug('CAMPAIGN')
+                        checkout.step = models.Checkout.DONE
+                        _step = checkout.step
                     else:
                         '''
                             try:
@@ -1077,7 +1083,7 @@ class CheckoutSteps(RequestHandler):
 
         if checkout.step == models.Checkout.DELIVERY:
             logger.debug('GET ' + models.Checkout.DELIVERY)
-            try:
+            '''try:
                 provider = self.db.query(
                     models.Provider
                 ).filter(
@@ -1101,7 +1107,7 @@ class CheckoutSteps(RequestHandler):
                     models.District.store == provider.store
                 ).order_by(
                     models.District.name
-                )
+                )'''
 
         if checkout.step == models.Checkout.DONE:
             logger.debug('GET ' + models.Checkout.DONE)

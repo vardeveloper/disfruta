@@ -13,13 +13,14 @@ Environment variables
 - PROMOTICK_API_CODES
 
 """
-from promotick import PromotickSync
 
 import json
 import os
 import logging
 
 import boto3
+
+from promotick import PromotickSync
 
 
 SQS_QUEUE = boto3.resource('sqs').get_queue_by_name(

@@ -4,5 +4,6 @@ Pipfile.lock
 *.pyc
 env/
 data/
+tests/
 *.zip
 local_settings.py
