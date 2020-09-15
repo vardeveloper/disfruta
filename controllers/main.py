@@ -936,8 +936,8 @@ class CheckoutSteps(RequestHandler):
 
     @authenticated
     @coroutine
-    def get(self, category_slug, category_id, gift_slug, gift_id,
-            checkout_uuid, form=None, name=None):
+    def get(self, category_slug, category_id, gift_slug, gift_id, checkout_uuid,
+            form=None, name=None):
 
         logger.debug('LO QUIERO')
 
@@ -1047,6 +1047,13 @@ class CheckoutSteps(RequestHandler):
                         logger.debug('CAMPAIGN')
                         checkout.step = models.Checkout.DONE
                         _step = checkout.step
+
+                        if (gift.type_stock != 2):
+                            stock = models.Stock()
+                            stock.uuid = str(uuid4())
+                            stock.generate_code(self.settings.get('code_length'))
+                            gift.stock.append(stock)
+
                     else:
                         '''
                             try:
@@ -1083,35 +1090,36 @@ class CheckoutSteps(RequestHandler):
 
         if checkout.step == models.Checkout.DELIVERY:
             logger.debug('GET ' + models.Checkout.DELIVERY)
-            '''try:
-                provider = self.db.query(
-                    models.Provider
-                ).filter(
-                    models.Provider.id == gift.id_provider
-                ).one()
-            except NoResultFound:
-                raise HTTPError(500)
-            else:
-                if not form:
-                    if provider.delivery_type == models.Provider.TYPE_DELIVERY:
-                        form = forms.Delivery()
-                    elif provider.delivery_type == models.Provider\
-                            .TYPE_DELIVERY_FULL:
-                        form = forms.DeliveryFull()
-                    else:
-                        raise HTTPError(500)
+            '''
+                try:
+                    provider = self.db.query(
+                        models.Provider
+                    ).filter(
+                        models.Provider.id == gift.id_provider
+                    ).one()
+                except NoResultFound:
+                    raise HTTPError(500)
+                else:
+                    if not form:
+                        if provider.delivery_type == models.Provider.TYPE_DELIVERY:
+                            form = forms.Delivery()
+                        elif provider.delivery_type == models.Provider\
+                                .TYPE_DELIVERY_FULL:
+                            form = forms.DeliveryFull()
+                        else:
+                            raise HTTPError(500)
 
-                form.district.query = self.db.query(
-                    models.District
-                ).filter(
-                    models.District.store == provider.store
-                ).order_by(
-                    models.District.name
-                )'''
+                    form.district.query = self.db.query(
+                        models.District
+                    ).filter(
+                        models.District.store == provider.store
+                    ).order_by(
+                        models.District.name
+                    )
+            '''
 
         if checkout.step == models.Checkout.DONE:
             logger.debug('GET ' + models.Checkout.DONE)
-            
             if gift.total_stock == -1:
                 stock = models.Stock()
                 stock.uuid = str(uuid4())
