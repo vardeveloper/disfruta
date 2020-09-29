@@ -1,4 +1,3 @@
--i https://pypi.org/simple
 backports-abc==0.5
 boto3==1.9.135
 botocore==1.12.135
