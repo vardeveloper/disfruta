@@ -1357,6 +1357,7 @@ class CheckoutSteps(RequestHandler):
                         raise tornado.httpclient.HTTPError(403)
                     profile = json_decode(profile.body)
                     if profile.get('rpta', None) != 'true':
+                        print('ERROR')
                         raise tornado.httpclient.HTTPError(403)
                 except tornado.httpclient.HTTPError:
                     pass
@@ -1418,6 +1419,7 @@ class CheckoutSteps(RequestHandler):
                             method='POST'
                         )
                         profile = yield self.http_client.fetch(profile_req)
+                        logger.debug('PROFILE ' + str(profile))
                         if profile.error:
                             raise tornado.httpclient.HTTPError(403)
                         profile = json_decode(profile.body)
@@ -1452,6 +1454,7 @@ class CheckoutSteps(RequestHandler):
                             allow_nonstandard_methods=True
                         )
                         pep = yield self.http_client.fetch(pep_req)
+                        logger.debug('PEP ' + str(pep))
                         if pep.error:
                             raise tornado.httpclient.HTTPError(403)
                         pep = json_decode(pep.body)
