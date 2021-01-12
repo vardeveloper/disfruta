@@ -74,9 +74,7 @@ class GetCoupons(RequestHandler):
         try:
             category = self.get_category(category_slug, category_id)
         except NoResultFound:
-            #raise HTTPError(404)
             self.redirect(self.reverse_url('home'))
-            return
 
         res = {
             'category': {
@@ -93,7 +91,6 @@ class GetCoupons(RequestHandler):
         if category.premium:
             if not self.current_user:
                 self.redirect(self.reverse_url('login'))
-                return
 
             coupons = coupons.join(
                 models.InvitedUserEvent
@@ -296,9 +293,7 @@ class Gift(RequestHandler):
         try:
             category = self.get_category(category_slug, category_id)
         except NoResultFound:
-             #raise HTTPError(404)
             self.redirect(self.reverse_url('home'))
-            return
 
         res = {
             'category': {
@@ -474,8 +469,7 @@ class Suggestion(RequestHandler):
     def get(self, form=forms.Suggestion()):
         self.render('site/suggestion.html', form=form)
 
-    @coroutine
-    def post(self):
+    async def post(self):
         g_recaptcha_response = self.get_argument('g-recaptcha-response')
         form = forms.Suggestion(forms.MultiDict(self))
 
@@ -483,13 +477,13 @@ class Suggestion(RequestHandler):
             recaptcha_req = tornado.httpclient.HTTPRequest(
                 self.settings.get('recaptcha_verify_url'),
                 body=urllib.parse.urlencode({
-                    'secret': self.settings.get('recaptcha_secret'),
+                    'secret': self.settings.get('recaptcha_secret_key'),
                     'response': g_recaptcha_response,
                     'remoteip': self.request.remote_ip
                 }),
                 method='POST'
             )
-            recaptcha = yield self.http_client.fetch(recaptcha_req)
+            recaptcha = await self.http_client.fetch(recaptcha_req)
             if recaptcha.error:
                 raise tornado.httpclient.HTTPError(403)
             recaptcha = json_decode(recaptcha.body)
@@ -521,12 +515,10 @@ class Login(RequestHandler):
     def get(self, form=forms.Login()):
         if self.current_user:
             self.redirect(self.reverse_url('home'))
-            return
 
         self.render('site/login.html', form=form)
 
-    @coroutine
-    def post(self):
+    async def post(self):
         form = forms.Login(forms.MultiDict(self))
 
         if form.validate():
@@ -551,7 +543,7 @@ class Login(RequestHandler):
                     },
                     method='POST'
                 )
-                login = yield self.http_client.fetch(login_req)
+                login = await self.http_client.fetch(login_req)
                 if login.error:
                     raise tornado.httpclient.HTTPError(403)
                 login = json_decode(login.body)
@@ -621,8 +613,7 @@ class Logout(RequestHandler):
 class Profile(RequestHandler):
 
     @authenticated
-    @coroutine
-    def get(self):
+    async def get(self):
         error = None
         _profile = {
             'name1': None,
@@ -645,7 +636,7 @@ class Profile(RequestHandler):
                 },
                 method='GET'
             )
-            profile = yield self.http_client.fetch(profile_req)
+            profile = await self.http_client.fetch(profile_req)
             if profile.error:
                 raise tornado.httpclient.HTTPError(403)
             profile = json_decode(profile.body)
@@ -678,8 +669,7 @@ class Profile(RequestHandler):
 class EditProfile(RequestHandler):
 
     @authenticated
-    @coroutine
-    def get(self):
+    async def get(self):
         res = {'ok': False}
         try:
             profile_req = tornado.httpclient.HTTPRequest(
@@ -694,7 +684,7 @@ class EditProfile(RequestHandler):
                 },
                 method='GET'
             )
-            profile = yield self.http_client.fetch(profile_req)
+            profile = await self.http_client.fetch(profile_req)
             if profile.error:
                 raise tornado.httpclient.HTTPError(403)
             profile = json_decode(profile.body)
@@ -714,8 +704,7 @@ class EditProfile(RequestHandler):
         self.finish(res)
 
     @authenticated
-    @coroutine
-    def post(self):
+    async def post(self):
         form = forms.Profile(forms.MultiDict(self))
         res = {'ok': False}
 
@@ -741,7 +730,7 @@ class EditProfile(RequestHandler):
                     },
                     method='POST'
                 )
-                profile = yield self.http_client.fetch(profile_req)
+                profile = await self.http_client.fetch(profile_req)
                 if profile.error:
                     raise tornado.httpclient.HTTPError(403)
                 profile = json_decode(profile.body)
@@ -902,8 +891,7 @@ class CheckoutSteps(RequestHandler):
 
         return checkout
 
-    @coroutine
-    def check_mark(self, _type):
+    async def check_mark(self, _type):
         try:
             req = tornado.httpclient.HTTPRequest(
                 self.settings.get('profuturo_api') +
@@ -921,8 +909,7 @@ class CheckoutSteps(RequestHandler):
                 },
                 method='GET'
             )
-            _client = tornado.httpclient.HTTPClient()
-            res = _client.fetch(req)
+            res = await self.http_client.fetch(req)
             if res.error:
                 raise tornado.httpclient.HTTPError(403)
             res = json_decode(res.body)
@@ -957,7 +944,6 @@ class CheckoutSteps(RequestHandler):
                     gift_slug,
                     gift_id
                 ))
-                return
         except NoResultFound:
             raise HTTPError(404)
 
@@ -1053,26 +1039,8 @@ class CheckoutSteps(RequestHandler):
                             stock.uuid = str(uuid4())
                             stock.generate_code(self.settings.get('code_length'))
                             gift.stock.append(stock)
-
                     else:
-                        '''
-                            try:
-                                provider = self.db.query(
-                                    models.Provider
-                                ).filter(
-                                    models.Provider.id == gift.id_provider
-                                ).one()
-                            except NoResultFound:
-                                raise HTTPError(500)
-                            else:
-                                if provider.delivery_type == models.Provider.\
-                                        TYPE_DIGITAL:
-                                    checkout.step = models.Checkout.DONE
-                                    _step = checkout.step
-                                else:
-                                    checkout.step = models.Checkout.DELIVERY
-                                    _step = checkout.step
-                        '''
+                        return
 
                     self.db.add(gift)
                     self.db.add(checkout)
@@ -1090,33 +1058,6 @@ class CheckoutSteps(RequestHandler):
 
         if checkout.step == models.Checkout.DELIVERY:
             logger.debug('GET ' + models.Checkout.DELIVERY)
-            '''
-                try:
-                    provider = self.db.query(
-                        models.Provider
-                    ).filter(
-                        models.Provider.id == gift.id_provider
-                    ).one()
-                except NoResultFound:
-                    raise HTTPError(500)
-                else:
-                    if not form:
-                        if provider.delivery_type == models.Provider.TYPE_DELIVERY:
-                            form = forms.Delivery()
-                        elif provider.delivery_type == models.Provider\
-                                .TYPE_DELIVERY_FULL:
-                            form = forms.DeliveryFull()
-                        else:
-                            raise HTTPError(500)
-
-                    form.district.query = self.db.query(
-                        models.District
-                    ).filter(
-                        models.District.store == provider.store
-                    ).order_by(
-                        models.District.name
-                    )
-            '''
 
         if checkout.step == models.Checkout.DONE:
             logger.debug('GET ' + models.Checkout.DONE)
@@ -1255,7 +1196,6 @@ class CheckoutSteps(RequestHandler):
                     gift_slug,
                     gift_id
                 ))
-                return
         except NoResultFound:
             raise HTTPError(404)
 

@@ -96,8 +96,10 @@ class BaseGift(Entity):
 
     def es_save(self):
         try:
-            if not self.id:
-                raise ModelNotCommited()
+            if self.id is None:
+                # raise ModelNotCommited()
+                # print(self.gift_type, self.name, sep=' - ')
+                return False
             _gift = ESBaseGift.get(id=self.id)
         except NotFoundError:
             _gift = ESBaseGift(meta={'id': self.id})
