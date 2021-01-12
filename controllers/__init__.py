@@ -7,7 +7,7 @@ from jose import jwt, ExpiredSignatureError, JWTError
 import boto3
 
 import os
-import urllib
+import urllib.parse
 
 import models
 
@@ -229,7 +229,7 @@ class RequestHandler(tornado.web.RequestHandler):
             except (ExpiredSignatureError, JWTError):
                 self.clear_all_cookies()
                 self.redirect(
-                    self.reverse_url('login') + '?' + urllib.urlencode({
+                    self.reverse_url('login') + '?' + urllib.parse.urlencode({
                         'next_url': self.request.full_url()
                     })
                 )

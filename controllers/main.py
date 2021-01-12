@@ -11,7 +11,7 @@ from tornado.escape import json_decode, json_encode
 import elasticsearch_dsl
 from jose import jwt
 
-import urllib
+import urllib.parse
 from datetime import datetime, timedelta
 from uuid import uuid4
 
@@ -482,7 +482,7 @@ class Suggestion(RequestHandler):
         try:
             recaptcha_req = tornado.httpclient.HTTPRequest(
                 self.settings.get('recaptcha_verify_url'),
-                body=urllib.urlencode({
+                body=urllib.parse.urlencode({
                     'secret': self.settings.get('recaptcha_secret'),
                     'response': g_recaptcha_response,
                     'remoteip': self.request.remote_ip
@@ -497,7 +497,7 @@ class Suggestion(RequestHandler):
                 raise tornado.httpclient.HTTPError(403)
         except tornado.httpclient.HTTPError:
             form.errors.update({
-                'custom': u'Error en validaci\xf3n recaptcha'
+                'custom': 'Error en validaci\xf3n recaptcha'
             })
         else:
             if form.validate():
@@ -510,7 +510,7 @@ class Suggestion(RequestHandler):
                 except:
                     self.db.rollback()
                     form.errors.update({
-                        'custom': u'Error inesperado'
+                        'custom': 'Error inesperado'
                     })
 
         self.render('site/suggestion.html', form=form)
@@ -534,7 +534,7 @@ class Login(RequestHandler):
                 login_req = tornado.httpclient.HTTPRequest(
                     self.settings.get('profuturo_api') +
                     '/profuturo-rest-oauth-war/afiliados/oauth/token',
-                    body=urllib.urlencode({
+                    body=urllib.parse.urlencode({
                         'grant_type': 'password',
                         'tipoDocumento': form.doc_type.data,
                         'numeroDocumento': form.doc_number.data,
@@ -559,7 +559,7 @@ class Login(RequestHandler):
                     raise tornado.httpclient.HTTPError(403)
             except tornado.httpclient.HTTPError:
                 form.errors.update({
-                    'custom': u'Error en la autenticaci\xf3n'
+                    'custom': 'Error en la autenticaci\xf3n'
                 })
             else:
                 try:
@@ -588,7 +588,7 @@ class Login(RequestHandler):
 
                 except:
                     form.errors.update({
-                        'custom': u'Error en la autenticaci\xf3n'
+                        'custom': 'Error en la autenticaci\xf3n'
                     })
                 else:
                     self.set_secure_cookie(
@@ -652,7 +652,7 @@ class Profile(RequestHandler):
             if profile.get('rpta', None) != 'true':
                 raise tornado.httpclient.HTTPError(403)
         except tornado.httpclient.HTTPError:
-            error = u'Error al obtener el perfil del usuario'
+            error = 'Error al obtener el perfil del usuario'
         else:
             _profile = {
                 'name1': profile.get('primerNombre'),
@@ -702,7 +702,7 @@ class EditProfile(RequestHandler):
                 raise tornado.httpclient.HTTPError(403)
         except tornado.httpclient.HTTPError:
             res.update({
-                'errors': [u'Error al obtener el perfil del usuario']
+                'errors': ['Error al obtener el perfil del usuario']
             })
         else:
             res = {
@@ -725,7 +725,7 @@ class EditProfile(RequestHandler):
                     self.settings.get('profuturo_api') +
                     '/profuturo-rest-afiliado-war/afiliados/me/' +
                     'regdatospuntuales',
-                    body=urllib.urlencode({
+                    body=urllib.parse.urlencode({
                         'codAplicacion': self.settings.get(
                             'profuturo_cod_app'
                         ),
@@ -749,7 +749,7 @@ class EditProfile(RequestHandler):
                     raise tornado.httpclient.HTTPError(403)
             except tornado.httpclient.HTTPError:
                 res.update({
-                    'errors': [u'Error al actualizar perfil']
+                    'errors': ['Error al actualizar perfil']
                 })
             else:
                 res = {'ok': True}
@@ -908,7 +908,7 @@ class CheckoutSteps(RequestHandler):
             req = tornado.httpclient.HTTPRequest(
                 self.settings.get('profuturo_api') +
                 '/profuturo-rest-zp/me/marca?cuspp=' +
-                urllib.quote(
+                urllib.parse.quote(
                     self.current_user.get('jwt').get('cuspp').encode('utf8')
                 ) +
                 '&tipoMarca=' +
@@ -1268,7 +1268,7 @@ class CheckoutSteps(RequestHandler):
                     login_req = tornado.httpclient.HTTPRequest(
                         self.settings.get('profuturo_api') +
                         '/profuturo-rest-oauth-war/afiliados/oauth/token',
-                        body=urllib.urlencode({
+                        body=urllib.parse.urlencode({
                             'grant_type': 'password',
                             'tipoDocumento': form.doc_type.data,
                             'numeroDocumento': form.doc_number.data,
@@ -1295,7 +1295,7 @@ class CheckoutSteps(RequestHandler):
                         raise tornado.httpclient.HTTPError(403)
                 except tornado.httpclient.HTTPError:
                     form.errors.update({
-                        'custom': u'Error en la verificaci\xf3n'
+                        'custom': 'Error en la verificaci\xf3n'
                     })
                 else:
                     checkout.step = models.Checkout.PROFILE
@@ -1410,7 +1410,7 @@ class CheckoutSteps(RequestHandler):
                         profile_req = tornado.httpclient.HTTPRequest(
                             self.settings.get('profuturo_api') +
                             '/profuturo-rest-ffee-war/ffee/me/datos',
-                            body=urllib.urlencode(_profile_fields),
+                            body=urllib.parse.urlencode(_profile_fields),
                             headers={
                                 'Authorization': 'bearer %s' % (
                                     self.current_user.get('access_token')
@@ -1428,7 +1428,7 @@ class CheckoutSteps(RequestHandler):
                     except tornado.httpclient.HTTPError:
                         ok = False
                         form.errors.update({
-                            'custom': u'Error al actualizar perfil'
+                            'custom': 'Error al actualizar perfil'
                         })
 
                 if _pep_fields:
@@ -1444,7 +1444,7 @@ class CheckoutSteps(RequestHandler):
                         pep_req = tornado.httpclient.HTTPRequest(
                             self.settings.get('profuturo_api') +
                             '/profuturo-rest-afiliado-war/pep/datoslaborales' +
-                            '?' + urllib.urlencode(_pep_fields),
+                            '?' + urllib.parse.urlencode(_pep_fields),
                             headers={
                                 'Authorization': 'bearer %s' % (
                                     self.current_user.get('access_token')
@@ -1463,7 +1463,7 @@ class CheckoutSteps(RequestHandler):
                     except tornado.httpclient.HTTPError:
                         ok = False
                         form.errors.update({
-                            'custom': u'Error al actualizar perfil'
+                            'custom': 'Error al actualizar perfil'
                         })
 
                 if ok:

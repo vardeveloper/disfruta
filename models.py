@@ -140,7 +140,7 @@ class Gift(BaseGift):
                                          ondelete='CASCADE')
                               )
 
-    __mapper_args__ = {'polymorphic_identity': u'gift'}
+    __mapper_args__ = {'polymorphic_identity': 'gift'}
 
 
 class Event(BaseGift):
@@ -173,7 +173,7 @@ class Event(BaseGift):
     invited = relationship('InvitedUserEvent', backref=backref('event'),
                            passive_deletes=True)
 
-    __mapper_args__ = {'polymorphic_identity': u'event'}
+    __mapper_args__ = {'polymorphic_identity': 'event'}
 
 
 class Coupon(BaseGift):
@@ -194,7 +194,7 @@ class Coupon(BaseGift):
     locations = relationship('Location', backref=backref('coupon'),
                              passive_deletes=True)
 
-    __mapper_args__ = {'polymorphic_identity': u'coupon'}
+    __mapper_args__ = {'polymorphic_identity': 'coupon'}
 
 
 class Location(Entity):
@@ -274,7 +274,7 @@ class Stock(Entity):
 
     def generate_code(self, length):
         self.code = ''.join(
-            random.choice(settings.CODE_CHARS) for i in xrange(length)
+            random.choice(settings.CODE_CHARS) for i in range(length)
         )
 
 
@@ -418,7 +418,7 @@ class Agent(InternalUser):
     users = relationship('User', backref=backref('agent'),
                          passive_deletes=True)
 
-    __mapper_args__ = {'polymorphic_identity': u'agent'}
+    __mapper_args__ = {'polymorphic_identity': 'agent'}
 
 
 class Director(InternalUser):
@@ -433,7 +433,7 @@ class Director(InternalUser):
     users = relationship('User', backref=backref('director'),
                          passive_deletes=True)
 
-    __mapper_args__ = {'polymorphic_identity': u'director'}
+    __mapper_args__ = {'polymorphic_identity': 'director'}
 
 
 class Manager(InternalUser):
@@ -448,7 +448,7 @@ class Manager(InternalUser):
     users = relationship('User', backref=backref('manager'),
                          passive_deletes=True)
 
-    __mapper_args__ = {'polymorphic_identity': u'manager'}
+    __mapper_args__ = {'polymorphic_identity': 'manager'}
 
 
 class Admin(InternalUser):
@@ -460,7 +460,7 @@ class Admin(InternalUser):
 
     id = Column(Integer, ForeignKey('internal_users.id'), primary_key=True)
 
-    __mapper_args__ = {'polymorphic_identity': u'admin'}
+    __mapper_args__ = {'polymorphic_identity': 'admin'}
 
 
 class Provider(InternalUser):
@@ -482,7 +482,7 @@ class Provider(InternalUser):
     gifts = relationship('BaseGift', backref=backref('provider'),
                          passive_deletes=True)
 
-    __mapper_args__ = {'polymorphic_identity': u'provider'}
+    __mapper_args__ = {'polymorphic_identity': 'provider'}
 
 
 class Banner(Entity):
