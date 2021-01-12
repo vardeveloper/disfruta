@@ -26,8 +26,8 @@ KEYS_PATH = os.path.join(_local_path, 'keys')
 ES_HOSTS = ['localhost']
 
 RECAPTCHA_VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
-RECAPTCHA_KEY = ''
-RECAPTCHA_SECRET = ''
+RECAPTCHA_SITE_KEY = ''
+RECAPTCHA_SECRET_KEY = ''
 
 PROFUTURO_API = 'https://enlinea.profuturo.com.pe'
 PROFUTURO_COD_APP = 'PLD0002'
@@ -49,6 +49,20 @@ CODE_CHARS = string.ascii_uppercase + string.digits
 CODE_LENGTH = 7
 
 GMAP_KEY = ''
+
+XSRF_COOKIE_KWARGS = {
+    'secure': True,
+    'httponly': True,
+    'samesite': 'strict'
+}
+
+
+try:
+    from http.cookies import Morsel
+except ImportError:
+    from Cookie import Morsel
+
+Morsel._reserved[str('samesite')] = str('SameSite')
 
 
 try:

@@ -583,6 +583,7 @@ class Login(RequestHandler):
                         'custom': 'Error en la autenticaci\xf3n'
                     })
                 else:
+                    secure_cookie = self.settings.get('xsrf_cookie_kwargs')
                     self.set_secure_cookie(
                         'user',
                         json_encode({
@@ -592,12 +593,18 @@ class Login(RequestHandler):
                         # add 18000 for time zone offset
                         expires=datetime.fromtimestamp(
                             _access_token.get('exp') + 18000
-                        )
+                        ),
+                        secure=secure_cookie['secure'],
+                        httponly=secure_cookie['httponly'],
+                        samesite='strict'
                     )
-                    self.redirect(
-                        self.get_argument('next', self.reverse_url('home')) +
-                        '?login=1'
-                    )
+                    _next = self.get_argument('next', None)
+                    try:
+                        if _next is None or urllib.parse.urlparse(_next).netloc != '':
+                            raise ValueError
+                    except ValueError:
+                        _next = self.reverse_url('home')
+                    self.redirect(_next + '?login=1')
                     return
 
         self.render('site/login.html', form=form)
