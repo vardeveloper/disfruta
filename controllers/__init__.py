@@ -223,7 +223,7 @@ class RequestHandler(tornado.web.RequestHandler):
             try:
                 _access_token = jwt.decode(
                     user.get('access_token'),
-                    self.public_key,
+                    self.public_key.decode('utf-8'),
                     algorithms=['RS256']
                 )
             except (ExpiredSignatureError, JWTError):

@@ -565,7 +565,7 @@ class Login(RequestHandler):
                 try:
                     _access_token = jwt.decode(
                         login.get('access_token'),
-                        self.public_key,
+                        self.public_key.decode('utf-8'),
                         algorithms=['RS256']
                     )
 
