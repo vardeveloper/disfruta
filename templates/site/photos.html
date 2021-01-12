@@ -31,7 +31,7 @@
        var self = {};
        self.handler = {};
        self.handler.static_url = '{{ handler.static_url('') }}';
-       self.handler.xsrf = '{{ handler.xsrf_token }}';
+       self.handler.xsrf = '{{ handler.xsrf_token.decode("utf-8") }}';
        {%- if handler.current_user != None %}
        self.currentUser = {};
        self.currentUser.jwt = '{{ handler.current_user.access_token }}';
