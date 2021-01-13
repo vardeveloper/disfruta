@@ -26,8 +26,8 @@ KEYS_PATH = os.path.join(_local_path, 'keys')
 ES_HOSTS = ['localhost']
 
 RECAPTCHA_VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
-RECAPTCHA_SITE_KEY = ''
-RECAPTCHA_SECRET_KEY = ''
+RECAPTCHA_SITE_KEY = '' 
+RECAPTCHA_SECRET_KEY = '' 
 
 PROFUTURO_API = 'https://enlinea.profuturo.com.pe'
 PROFUTURO_COD_APP = 'PLD0002'

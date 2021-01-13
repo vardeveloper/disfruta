@@ -30,7 +30,7 @@ block body
 
 
         #recaptcha.g-recaptcha(
-          data-sitekey="{{ handler.settings.get('recaptcha_key') }}"
+          data-sitekey="{{ handler.settings.get('recaptcha_site_key') }}"
           data-size='invisible'
           data-callback='suggestionFormHandleSubmit'
         )

@@ -63,7 +63,7 @@
         <Form ref="form" @submit.prevent="handleSubmit" :class="['form-inline', {'form-loaded': isLoaded}]" :action="action" :method="method">
           <div class="form-overlay"></div>{% if handler.request.method == 'POST' and form.errors  and form.errors.custom %}
           <p class="form-message-error">{{ form.errors.custom }}</p>{%- endif %}
-          <div class="g-recaptcha" id="recaptcha" data-sitekey="{{ handler.settings.get('recaptcha_key') }}" data-size="invisible" data-callback="suggestionFormHandleSubmit"></div>{{ handler.xsrf_form_html() }}
+          <div class="g-recaptcha" id="recaptcha" data-sitekey="{{ handler.settings.get('recaptcha_site_key') }}" data-size="invisible" data-callback="suggestionFormHandleSubmit"></div>{{ handler.xsrf_form_html() }}
           <FormInput label="{{ form.email.label.text }}" id="{{ form.email.id }}" name="{{ form.email.name }}" value="{{ form.email.value }}" :errors="errorsEmail" v-model="email"></FormInput>
           <FormInput label="{{ form.phone.label.text }}" id="{{ form.phone.id }}" name="{{ form.phone.name }}" value="{{ form.phone.value }}" :errors="errorsPhone" v-model="phone" :attrs="{ 'maxlength': 9 }"></FormInput>
           <FormTextArea label="{{ form.message.label.text }}" id="{{ form.message.id }}" name="{{ form.message.name }}" value="{{ form.message.value }}" :errors="errorsMessage" v-model="message"></FormTextArea>
