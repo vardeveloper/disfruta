@@ -477,7 +477,7 @@ class Suggestion(RequestHandler):
             recaptcha_req = tornado.httpclient.HTTPRequest(
                 self.settings.get('recaptcha_verify_url'),
                 body=urllib.parse.urlencode({
-                    'secret': self.settings.get('recaptcha_secret_key'), 
+                    'secret': self.settings.get('recaptcha_secret_key'),
                     'response': g_recaptcha_response,
                     'remoteip': self.request.remote_ip
                 }),
