@@ -1,24 +1,38 @@
 SETUP
 =====
-- docker-compose up -d
-- python -m virtualenv env
-- source env/bin/activate
-- pip install -r requirements.txt
-- python models.py
-- python server.py --host=0.0.0.0
+docker-compose up -d
+python3.7 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip3 install -r requirements.txt
+python3.7 models.py
+python3.7 server.py --host=0.0.0.0
 
-  (set variables de ENV para la API de cupones)
-  export DATABASE_DSN=mysql+pymysql://root:root@localhost/disfruta
-  export PROMOTICK_API=http://beneficios.profuturo.promotick.com/api/mobile
-  export PROMOTICK_API_LOGIN=$PROMOTICK_API/login
-  export PROMOTICK_API_COUPONS=$PROMOTICK_API/listarDescuentos
-  export PROMOTICK_API_CODES=$PROMOTICK_API/listarCodigos
-  export PROMOTICK_API_USER=45961378
-  export PROMOTICK_API_PASS=123456
-  export PROMOTICK_API_BUSINESS_ID=44
+(set variables de ENV para la API de cupones)
+export DATABASE_DSN=mysql+pymysql://root:root@localhost/disfruta
+export PROMOTICK_API=http://beneficios.profuturo.promotick.com/api/mobile
+export PROMOTICK_API_LOGIN=$PROMOTICK_API/login
+export PROMOTICK_API_COUPONS=$PROMOTICK_API/listarDescuentos
+export PROMOTICK_API_CODES=$PROMOTICK_API/listarCodigos
+export PROMOTICK_API_USER=45961378
+export PROMOTICK_API_PASS=123456
+export PROMOTICK_API_BUSINESS_ID=44
 
-  (consumir la API del proveedor de cupones)
-- python promotick_migrate.py 
+(consumir la API del proveedor de cupones)
+python3.7 promotick_migrate.py
 
-  (Interactuar con redis)
-- docker run -it --network disfruta_elastic --rm redis redis-cli -h redis
+DOCKER
+======
+docker-compose up -d
+docker-compose down
+
+docker images
+docker ps -a
+docker logs -f [CONTAINER_ID]
+docker exec -it [CONTAINER_ID] bash
+
+ELASTICSEARCH
+=============
+curl -XPUT -H "Content-Type: application/json" http://127.0.0.1:9200/_cluster/settings -d '{ "transient": { "cluster.routing.allocation.disk.threshold_enabled": false } }'
+curl -XPUT -H "Content-Type: application/json" http://127.0.0.1:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
+python3.7 reindex_gifts.py
