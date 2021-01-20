@@ -9,7 +9,8 @@ python3.7 models.py
 python3.7 server.py --host=0.0.0.0
 
 (set variables de ENV para la API de cupones)
-export DATABASE_DSN=mysql+pymysql://root:root@localhost/disfruta
+export DATABASE_DSN=mysql+mysqlconnector://root:root@localhost:3306/disfruta_promotick
+#export DATABASE_DSN=mysql+pymysql://root:root@localhost/disfruta
 export PROMOTICK_API=http://beneficios.profuturo.promotick.com/api/mobile
 export PROMOTICK_API_LOGIN=$PROMOTICK_API/login
 export PROMOTICK_API_COUPONS=$PROMOTICK_API/listarDescuentos

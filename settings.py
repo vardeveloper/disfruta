@@ -57,11 +57,7 @@ XSRF_COOKIE_KWARGS = {
 }
 
 
-try:
-    from http.cookies import Morsel
-except ImportError:
-    from Cookie import Morsel
-
+from http.cookies import Morsel
 Morsel._reserved[str('samesite')] = str('SameSite')
 
 

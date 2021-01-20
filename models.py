@@ -38,7 +38,7 @@ class ESBaseGift(elasticsearch_dsl.Document):
     name = elasticsearch_dsl.Text(analyzer='snowball')
     description = elasticsearch_dsl.Text(analyzer='snowball')
     premium = elasticsearch_dsl.Boolean()
-    enabled = elasticsearch_dsl.Boolean()
+    enabled = elasticsearch_dsl.Text(analyzer='snowball')
 
     class Meta:
         doc_type = '_doc'
@@ -74,7 +74,7 @@ class BaseGift(Entity):
     description = Column(UnicodeText, nullable=False)  # descripcionDescuento
     used_stock = Column(Integer, nullable=False, server_default='0')
     total_stock = Column(Integer, nullable=False, server_default='-1')
-    type_stock = Column(Enum('1', '2', '3'), nullable=False)
+    type_stock = Column(Enum('1', '2', '3'))
     status = Column(Enum('enabled', 'disabled'), nullable=False,
                     server_default='enabled', index=True)
     highlight = Column(Boolean, server_default='0')
