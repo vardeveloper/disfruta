@@ -594,9 +594,9 @@ class Login(RequestHandler):
                         expires=datetime.fromtimestamp(
                             _access_token.get('exp') + 18000
                         ),
-                        secure=secure_cookie['secure'],
-                        httponly=secure_cookie['httponly'],
-                        samesite='strict'
+                        # secure=secure_cookie['secure'],
+                        # httponly=secure_cookie['httponly'],
+                        # samesite=secure_cookie['samesite']
                     )
                     _next = self.get_argument('next', None)
                     try:
@@ -782,7 +782,7 @@ class CheckoutHistory(RequestHandler):
             models.Coupon.excerpt,
             models.Category.slug.label('category_slug'),
             models.Category.id.label('category_id')
-        ).join(
+        ).select_from(
             models.BaseGift
         ).join(
             models.Category,
@@ -898,7 +898,8 @@ class CheckoutSteps(RequestHandler):
 
         return checkout
 
-    async def check_mark(self, _type):
+    @coroutine
+    def check_mark(self, _type):
         try:
             req = tornado.httpclient.HTTPRequest(
                 self.settings.get('profuturo_api') +
@@ -916,7 +917,7 @@ class CheckoutSteps(RequestHandler):
                 },
                 method='GET'
             )
-            res = await self.http_client.fetch(req)
+            res = yield self.http_client.fetch(req)
             if res.error:
                 raise tornado.httpclient.HTTPError(403)
             res = json_decode(res.body)
