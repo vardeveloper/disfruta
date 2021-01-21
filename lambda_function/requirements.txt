@@ -1,0 +1,7 @@
+mysql-connector-python==8.0.23
+requests==2.25.1
+boto3==1.16.57
+sqlalchemy==1.2.14
+wtforms==2.2.1
+elasticsearch==7.10.1
+elasticsearch-dsl==7.3.0

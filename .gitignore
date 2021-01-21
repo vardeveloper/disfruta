@@ -4,8 +4,9 @@ Pipfile.lock
 *.pyc
 env/
 venv/
+v-env/
 data/
 tests/
 *.zip
 local_settings.py
-lambda-prod/
+__pycache__

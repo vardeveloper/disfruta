@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 import elasticsearch_dsl
+from sqlalchemy.sql.base import Executable
 
 import models
 
@@ -254,3 +255,12 @@ class PromotickSync(object):
             db.close()
 
         return ok
+
+
+if __name__ == '__main__':
+    try:
+        s = PromotickSync()
+        s.login()
+        s.sync()
+    except Exception as e:
+        print(e)
